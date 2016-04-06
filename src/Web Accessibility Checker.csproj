@@ -50,7 +50,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BrowserLink\CheckerExtension.cs" />
+    <Compile Include="BrowserLink\CheckerFactory.cs" />
     <Compile Include="Commands\EnableCommand.cs" />
+    <Compile Include="Helpers\DteHelpers.cs" />
+    <Compile Include="Helpers\Logger.cs" />
+    <Compile Include="Helpers\Telemetry.cs" />
     <Compile Include="source.extension.cs">
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Compile>
@@ -67,6 +72,10 @@
       <Link>Resources\LICENSE</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <EmbeddedResource Include="BrowserLink\Checker.js" />
+    <None Include="BrowserLink\_intellisense\browserlink.intellisense.js" />
+    <None Include="BrowserLink\_intellisense\jquery-1.8.2.intellisense.js" />
+    <None Include="BrowserLink\_intellisense\jquery-1.8.2.js" />
     <Content Include="Resources\Icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -178,10 +187,12 @@
       <HintPath>..\packages\Microsoft.VisualStudio.Validation.14.1.111\lib\net45\Microsoft.VisualStudio.Validation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.Web.BrowserLink.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
