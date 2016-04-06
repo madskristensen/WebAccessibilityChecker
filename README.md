@@ -1,11 +1,11 @@
 # Web Accessibility Checker
 
-[![Build status](https://ci.appveyor.com/api/projects/status/0skq7nlbcvdecv9a?svg=true)](https://ci.appveyor.com/project/madskristensen/browserreloadonsave)
+[![Build status](https://ci.appveyor.com/api/projects/status/q0xapaawd7mfxfby?svg=true)](https://ci.appveyor.com/project/madskristensen/webaccessibilitychecker)
 
 Download the extension at the
 [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/46eef4d9-045b-4596-bd7f-eee980bb5450)
 or get the
-[CI build](http://vsixgallery.com/extension/2d8aa02a-8810-421f-97b9-86efc573fea3/)
+[CI build](http://vsixgallery.com/extension/25a79d25-0fff-4748-afaa-3a67ed116bc9/)
 
 ------------------------------------------
 
