@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using EnvDTE;
 using Microsoft.VisualStudio.Web.BrowserLink;
+using Newtonsoft.Json;
 
 namespace WebAccessibilityChecker
 {
@@ -20,6 +21,7 @@ namespace WebAccessibilityChecker
         [BrowserLinkCallback]
         public void ProcessResult(string jsonResult)
         {
+            var result = JsonConvert.DeserializeObject<AccessibilityResult>(jsonResult);
 
         }
     }

@@ -11,6 +11,7 @@ namespace WebAccessibilityChecker
     public class CheckerFactory : IBrowserLinkExtensionFactory
     {
         static SolutionEvents _solutionEvents;
+        static string _script;
 
         static CheckerFactory()
         {
@@ -18,6 +19,11 @@ namespace WebAccessibilityChecker
             _solutionEvents = dte.Events.SolutionEvents;
             _solutionEvents.AfterClosing += SolutionEvents_AfterClosing;
             _solutionEvents.ProjectRemoved += _solutionEvents_ProjectRemoved;
+
+            var checkerJs = GetScriptFromAssembly("WebAccessibilityChecker.BrowserLink.Checker.js");
+            var axeJs = GetScriptFromAssembly("WebAccessibilityChecker.BrowserLink.Axe.js");
+
+            _script = checkerJs.Replace("//[axe.js]", axeJs);
         }
 
         public BrowserLinkExtension CreateExtensionInstance(BrowserLinkConnection connection)
@@ -30,7 +36,12 @@ namespace WebAccessibilityChecker
 
         public string GetScript()
         {
-            using (var stream = GetType().Assembly.GetManifestResourceStream("WebAccessibilityChecker.BrowserLink.Checker.js"))
+            return _script;
+        }
+
+        private static string GetScriptFromAssembly(string path)
+        {
+            using (var stream = typeof(CheckerFactory).Assembly.GetManifestResourceStream(path))
             using (var reader = new StreamReader(stream))
             {
                 return reader.ReadToEnd();
