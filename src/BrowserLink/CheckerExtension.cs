@@ -22,7 +22,7 @@ namespace WebAccessibilityChecker
         public void ProcessResult(string jsonResult)
         {
             var result = JsonConvert.DeserializeObject<AccessibilityResult>(jsonResult);
-
+            ErrorListService.ProcessLintingResults(result, true);
         }
     }
 }

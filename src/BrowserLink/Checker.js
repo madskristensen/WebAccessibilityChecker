@@ -5,26 +5,37 @@
     /// <param name="$" value="jQuery" />
 
     function check() {
-        axe.a11yCheck(document, function (results) {
+        var options = {
+            "rules": {
+                "region": { "enabled": false }
+            }
+        }
 
-            console.log(results);
+        axe.a11yCheck(document, options, function (results) {
 
             if (results.violations.length > 0) {
 
                 for (var i = 0; i < results.violations.length; i++) {
 
-                    var nodes = results.violations.nodes;
+                    var nodes = results.violations[i].nodes;
 
                     if (!nodes || nodes.length === 0)
                         continue;
 
+                    results.violations[i].html = nodes[0].html;
+
                     var target = nodes[0].target[0];
                     var element = document.querySelector(target);
+                    var hasSourceMap = browserLink.sourceMapping.canMapToSource(element);
 
-                    if (browserLink.sourceMapping.canMapToSource(element)) {
-                        nodes[0].fileName = browserLink.sourceMapping.getCompleteRange(element).sourcePath;
+                    if (hasSourceMap) {
+                        var sourcemap = browserLink.sourceMapping.getCompleteRange(element);
+                        results.violations[i].fileName = sourcemap.sourcePath;
+                        results.violations[i].position = sourcemap.startPosition
                     }
                 }
+
+                console.log(results);
 
                 browserLink.invoke("ProcessResult", JSON.stringify(results));
             }
@@ -34,6 +45,8 @@
     //[axe.js]
 
     return {
-        onConnected: check
+        onConnected: function () {
+            setTimeout(check, 3000);
+        }
     };
 });
