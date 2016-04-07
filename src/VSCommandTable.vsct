@@ -3,13 +3,29 @@
 
     <Extern href="stdidcmd.h"/>
     <Extern href="vsshlids.h"/>
+    <Include href="KnownImageIds.vsct"/>
 
     <Commands package="guidPackage">
+        <Groups>
+            <Group guid="guidPackageCmdSet" id="ErrorListGroup" priority="0x0200">
+                <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ERRORLIST"/>
+            </Group>
+        </Groups>
+
         <Buttons>
             <Button guid="guidPackageCmdSet" id="EnableAccessibilityId" priority="0x0100" type="Button">
                 <Parent guid="guidBrowserLinkCmdSet" id="IDG_BROWSERLINK_COMMANDS"/>
                 <Strings>
                     <ButtonText>Enable Accessibility Checker</ButtonText>
+                </Strings>
+            </Button>
+
+            <Button guid="guidPackageCmdSet" id="ClearAllErrorsId" priority="0x0100" type="Button">
+                <Parent guid="guidPackageCmdSet" id="ErrorListGroup"/>
+                <Icon guid="ImageCatalogGuid" id="ClearWindowContent"/>
+                <CommandFlag>IconIsMoniker</CommandFlag>
+                <Strings>
+                    <ButtonText>Clear All Accessibility Errors</ButtonText>
                 </Strings>
             </Button>
         </Buttons>
@@ -19,7 +35,9 @@
         <GuidSymbol name="guidPackage" value="{5123051b-3c1d-40e9-aedd-db11ee9f8b9a}" />
 
         <GuidSymbol name="guidPackageCmdSet" value="{762f92d8-926a-4160-8519-badb7cc9a872}">
+            <IDSymbol name="ErrorListGroup" value="0x1000" />
             <IDSymbol name="EnableAccessibilityId" value="0x0100" />
+            <IDSymbol name="ClearAllErrorsId" value="0x0200" />
         </GuidSymbol>
 
         <GuidSymbol name="guidBrowserLinkCmdSet" value="{30947ebe-9147-45f9-96cf-401bfc671a82}">

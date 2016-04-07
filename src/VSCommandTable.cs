@@ -24,7 +24,9 @@ namespace WebAccessibilityChecker
     /// </summary>
     internal sealed partial class PackageIds
     {
+        public const int ErrorListGroup = 0x1000;
         public const int EnableAccessibilityId = 0x0100;
+        public const int ClearAllErrorsId = 0x0200;
         public const int IDG_BROWSERLINK_COMMANDS = 0x2001;
     }
 }

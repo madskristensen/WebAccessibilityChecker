@@ -50,12 +50,12 @@ namespace WebAccessibilityChecker
 
         static void _solutionEvents_ProjectRemoved(Project Project)
         {
-            // Clear error list
+            TableDataSource.Instance.CleanAllErrors();
         }
 
         static void SolutionEvents_AfterClosing()
         {
-            // Clear error list
+            TableDataSource.Instance.CleanAllErrors();
         }
     }
 }

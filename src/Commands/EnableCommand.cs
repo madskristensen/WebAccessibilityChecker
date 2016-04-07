@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Design;
-using System.Globalization;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 
 namespace WebAccessibilityChecker
 {
@@ -12,22 +10,18 @@ namespace WebAccessibilityChecker
 
         private EnableCommand(Package package)
         {
-            if (package == null)
-            {
-                throw new ArgumentNullException(nameof(package));
-            }
-
             _package = package;
 
             OleMenuCommandService commandService = ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
             {
-                var id = new CommandID(PackageGuids.guidBrowserLinkCmdSet, PackageIds.EnableAccessibilityId);
-                var cmd = new MenuCommand(MenuItemCallback, id);
+                var id = new CommandID(PackageGuids.guidPackageCmdSet, PackageIds.EnableAccessibilityId);
+                var cmd = new OleMenuCommand(MenuItemCallback, id);
+                cmd.BeforeQueryStatus += BeforeQueryStatus;
                 commandService.AddCommand(cmd);
             }
         }
-
+        
         public static EnableCommand Instance { get; private set; }
 
         private IServiceProvider ServiceProvider
@@ -40,18 +34,23 @@ namespace WebAccessibilityChecker
             Instance = new EnableCommand(package);
         }
 
+        private void BeforeQueryStatus(object sender, EventArgs e)
+        {
+            var button = (MenuCommand)sender;
+            button.Checked = VSPackage.Options.Enabled;
+        }
+
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            string message = string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.GetType().FullName);
-            string title = "EnableCommand";
+            var button = (MenuCommand)sender;
 
-            VsShellUtilities.ShowMessageBox(
-                this.ServiceProvider,
-                message,
-                title,
-                OLEMSGICON.OLEMSGICON_INFO,
-                OLEMSGBUTTON.OLEMSGBUTTON_OK,
-                OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+            VSPackage.Options.Enabled = !button.Checked;
+            VSPackage.Options.SaveSettingsToStorage();
+            
+            if (button.Checked)
+            {
+                TableDataSource.Instance.CleanAllErrors();
+            }
         }
     }
 }

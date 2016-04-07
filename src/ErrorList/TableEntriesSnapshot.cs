@@ -35,7 +35,7 @@ namespace WebAccessibilityChecker
         public override bool TryGetValue(int index, string columnName, out object content)
         {
             content = null;
-            
+
             if ((index >= 0) && (index < _errors.Count))
             {
                 if (columnName == StandardTableKeyNames.DocumentName)
@@ -60,13 +60,13 @@ namespace WebAccessibilityChecker
                 }
                 else if (columnName == StandardTableKeyNames.Text)
                 {
-                    content = _errors[index].Help;
+                    content = $"{_errors[index].Help} ({string.Join(", ", _errors[index].Tags)})";
                 }
-                else if (columnName == StandardTableKeyNames.FullText)
+                else if (columnName == StandardTableKeyNames.FullText || columnName == StandardTableKeyNames.Text)
                 {
                     content = _errors[index].Help + "\r\n" +
-                              _errors[index].Description + "\r\n" +
-                              "Tags: " + string.Join(", ", _errors[index].Tags ?? new List<string>()) + "\r\n\r\n" +
+                              _errors[index].Description + "\r\n\r\n" +
+                              "Tags: " + string.Join(", ", _errors[index].Tags ?? new List<string>()) + "\r\n" +
                               _errors[index].Html;
                 }
                 else if (columnName == StandardTableKeyNames.PriorityImage)
@@ -75,11 +75,11 @@ namespace WebAccessibilityChecker
                 }
                 else if (columnName == StandardTableKeyNames.ErrorSeverity)
                 {
-                    content = _errors[index].Impact == "critical" ? __VSERRORCATEGORY.EC_ERROR : __VSERRORCATEGORY.EC_WARNING;
+                    content = _errors[index].GetSeverity();
                 }
                 else if (columnName == StandardTableKeyNames.Priority)
                 {
-                    content = _errors[index].Impact == "critical" ? vsTaskPriority.vsTaskPriorityHigh : vsTaskPriority.vsTaskPriorityMedium;
+                    content = vsTaskPriority.vsTaskPriorityMedium;
                 }
                 else if (columnName == StandardTableKeyNames.ErrorSource)
                 {

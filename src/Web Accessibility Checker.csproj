@@ -52,7 +52,9 @@
   <ItemGroup>
     <Compile Include="BrowserLink\CheckerExtension.cs" />
     <Compile Include="BrowserLink\CheckerFactory.cs" />
+    <Compile Include="Commands\ClearAllErrorsCommand.cs" />
     <Compile Include="Commands\EnableCommand.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="ErrorList\AccessibilityResult.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />
     <Compile Include="ErrorList\SinkManager.cs" />
@@ -61,6 +63,10 @@
     <Compile Include="Helpers\DteHelpers.cs" />
     <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\Telemetry.cs" />
+    <Compile Include="JSON\Schema\SchemaSelector.cs" />
+    <Compile Include="Options.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="source.extension.cs">
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Compile>
@@ -78,7 +84,6 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <EmbeddedResource Include="BrowserLink\Checker.js" />
-    <None Include="app.config" />
     <None Include="BrowserLink\_intellisense\browserlink.intellisense.js" />
     <None Include="BrowserLink\_intellisense\jquery-1.8.2.intellisense.js" />
     <None Include="BrowserLink\_intellisense\jquery-1.8.2.js" />
@@ -94,6 +99,10 @@
     <Content Include="source.extension.ico">
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Content>
+    <Content Include="JSON\Schema\a11y-schema.json">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <None Include="JSON\Schema\a11y.json" />
     <None Include="packages.config" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
@@ -120,6 +129,14 @@
     </Reference>
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.JSON.Core">
+      <HintPath>..\lib\Microsoft.JSON.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.JSON.Editor">
+      <HintPath>..\lib\Microsoft.JSON.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.CommandBars, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
@@ -209,6 +226,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Web.BrowserLink.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Web.Editor, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Microsoft.Web.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -251,6 +273,11 @@
     <Error Condition="!Exists('..\packages\Microsoft.VSSDK.BuildTools.14.1.24720\build\Microsoft.VSSDK.BuildTools.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VSSDK.BuildTools.14.1.24720\build\Microsoft.VSSDK.BuildTools.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.VSSDK.BuildTools.14.1.24720\build\Microsoft.VSSDK.BuildTools.targets" Condition="Exists('..\packages\Microsoft.VSSDK.BuildTools.14.1.24720\build\Microsoft.VSSDK.BuildTools.targets')" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties JSON_4Schema_4a11y_1json__JSONSchema="a11y-schema.json" />
+    </VisualStudio>
+  </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

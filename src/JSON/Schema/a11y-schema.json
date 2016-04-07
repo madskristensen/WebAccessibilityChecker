@@ -1,0 +1,177 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Schema for a11y.json files",
+
+  "type": "object",
+
+  "definitions": {
+    "runOnly": {
+      "type": "object",
+      "description": "Run only a specified list of Rules",
+      "oneOf": [
+        { "$ref": "#/definitions/runOnlyRule" },
+        { "$ref": "#/definitions/runOnlyTag" }
+      ]
+    },
+
+    "runOnlyRule": {
+      "properties": {
+        "type": {
+          "description": "The type to run. Can either be 'tag' or 'rule",
+          "enum": [ "rule" ]
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "uniqueItems": true,
+            "enum": [
+              "accesskeys",
+              "area-alt",
+              "aria-allowed-attr",
+              "aria-required-attr",
+              "aria-required-children",
+              "aria-required-parent",
+              "aria-roles",
+              "aria-valid-attr-value",
+              "aria-valid-attr",
+              "audio-caption",
+              "blink",
+              "button-name",
+              "bypass",
+              "checkboxgroup",
+              "color-contrast",
+              "data-table",
+              "definition-list",
+              "dlitem",
+              "document-title",
+              "duplicate-id",
+              "empty-heading",
+              "frame-title",
+              "heading-order",
+              "html-lang",
+              "image-alt",
+              "input-image-alt",
+              "label-title-only",
+              "label",
+              "layout-table",
+              "link-name",
+              "list",
+              "listitem",
+              "marquee",
+              "meta-refresh",
+              "meta-viewport",
+              "object-alt",
+              "radiogroup",
+              "regions",
+              "scope",
+              "server-side-image-map",
+              "skip-link",
+              "tabindex",
+              "valid-lang",
+              "video-caption",
+              "video-description"
+            ]
+          }
+        }
+      }
+    },
+
+    "runOnlyTag": {
+      "properties": {
+        "type": {
+          "description": "The type to run. Can either be 'tag' or 'rule",
+          "enum": [ "tag" ]
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "uniqueItems": true,
+            "enum": [
+              "wcag2a",
+              "wcag2aa",
+              "section508",
+              "best-practices"
+            ]
+          }
+        }
+      }
+    },
+
+    "rules": {
+      "type": "object",
+      "properties": {
+        "accesskeys"{ "$ref": "#/definitions/rule" },
+        "area-alt"{ "$ref": "#/definitions/rule" },
+        "aria-allowed-attr"{ "$ref": "#/definitions/rule" },
+        "aria-required-attr"{ "$ref": "#/definitions/rule" },
+        "aria-required-children"{ "$ref": "#/definitions/rule" },
+        "aria-required-parent"{ "$ref": "#/definitions/rule" },
+        "aria-roles"{ "$ref": "#/definitions/rule" },
+        "aria-valid-attr-value"{ "$ref": "#/definitions/rule" },
+        "aria-valid-attr"{ "$ref": "#/definitions/rule" },
+        "audio-caption"{ "$ref": "#/definitions/rule" },
+        "blink"{ "$ref": "#/definitions/rule" },
+        "button-name"{ "$ref": "#/definitions/rule" },
+        "bypass"{ "$ref": "#/definitions/rule" },
+        "checkboxgroup"{ "$ref": "#/definitions/rule" },
+        "color-contrast"{ "$ref": "#/definitions/rule" },
+        "data-table"{ "$ref": "#/definitions/rule" },
+        "definition-list"{ "$ref": "#/definitions/rule" },
+        "dlitem"{ "$ref": "#/definitions/rule" },
+        "document-title"{ "$ref": "#/definitions/rule" },
+        "duplicate-id"{ "$ref": "#/definitions/rule" },
+        "empty-heading"{ "$ref": "#/definitions/rule" },
+        "frame-title"{ "$ref": "#/definitions/rule" },
+        "heading-order"{ "$ref": "#/definitions/rule" },
+        "html-lang"{ "$ref": "#/definitions/rule" },
+        "image-alt"{ "$ref": "#/definitions/rule" },
+        "input-image-alt"{ "$ref": "#/definitions/rule" },
+        "label-title-only"{ "$ref": "#/definitions/rule" },
+        "label"{ "$ref": "#/definitions/rule" },
+        "layout-table"{ "$ref": "#/definitions/rule" },
+        "link-name"{ "$ref": "#/definitions/rule" },
+        "list"{ "$ref": "#/definitions/rule" },
+        "listitem"{ "$ref": "#/definitions/rule" },
+        "marquee"{ "$ref": "#/definitions/rule" },
+        "meta-refresh"{ "$ref": "#/definitions/rule" },
+        "meta-viewport"{ "$ref": "#/definitions/rule" },
+        "object-alt"{ "$ref": "#/definitions/rule" },
+        "radiogroup"{ "$ref": "#/definitions/rule" },
+        "regions"{ "$ref": "#/definitions/rule" },
+        "scope"{ "$ref": "#/definitions/rule" },
+        "server-side-image-map"{ "$ref": "#/definitions/rule" },
+        "skip-link"{ "$ref": "#/definitions/rule" },
+        "tabindex"{ "$ref": "#/definitions/rule" },
+        "valid-lang"{ "$ref": "#/definitions/rule" },
+        "video-caption"{ "$ref": "#/definitions/rule" },
+        "video-description"{ "$ref": "#/definitions/rule" }
+      }
+    },
+
+    "rule": {
+      "description": "See details at https://dequeuniversity.com/rules/axe/1.1/<rule-name>",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+
+  "oneOf": [
+    {
+      "required": [ "runOnly" ],
+      "properties": {
+        "runOnly": { "$ref": "#/definitions/runOnly" }
+      }
+    },
+    {
+      "required": [ "rules" ],
+      "properties": {
+        "rules": { "$ref": "#/definitions/rules" }
+      }
+    }
+  ]
+}

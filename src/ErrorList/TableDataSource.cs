@@ -162,15 +162,5 @@ namespace WebAccessibilityChecker
             var dte = (DTE2)Package.GetGlobalService(typeof(DTE));
             dte.ExecuteCommand("View.ErrorList");
         }
-
-        public bool HasErrors()
-        {
-            return _snapshots.Count > 0;
-        }
-
-        public bool HasErrors(string fileName)
-        {
-            return _snapshots.ContainsKey(fileName);
-        }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.VisualStudio.Shell.Interop;
 using Newtonsoft.Json;
 
 namespace WebAccessibilityChecker
@@ -21,6 +22,21 @@ namespace WebAccessibilityChecker
         public string Id { get; set; }
         public string Impact { get; set; }
         public List<string> Tags { get; set; }
+
+        public __VSERRORCATEGORY GetSeverity()
+        {
+            switch (Impact)
+            {
+                case "critical":
+                case "serious":
+                    return __VSERRORCATEGORY.EC_ERROR;
+
+                case "moderate":
+                    return __VSERRORCATEGORY.EC_WARNING;
+            }
+
+            return __VSERRORCATEGORY.EC_MESSAGE;
+        }
 
         private string _fileName;
         public string FileName
