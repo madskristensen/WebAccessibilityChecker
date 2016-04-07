@@ -4,7 +4,6 @@ using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell.TableManager;
 
 
@@ -16,21 +15,18 @@ namespace WebAccessibilityChecker
         private DTE2 _dte;
         private readonly List<Rule> _errors = new List<Rule>();
 
-        internal TableEntriesSnapshot(string ruleId, IEnumerable<Rule> errors)
+        internal TableEntriesSnapshot(IEnumerable<Rule> errors)
         {
-            RuleId = ruleId;
             _errors.AddRange(errors);
             _dte = (DTE2)Package.GetGlobalService(typeof(DTE));
         }
+
+        public override int VersionNumber { get; } = 1;
 
         public override int Count
         {
             get { return _errors.Count; }
         }
-
-        public string RuleId { get; }
-
-        public override int VersionNumber { get; } = 1;
 
         public override bool TryGetValue(int index, string columnName, out object content)
         {
@@ -91,7 +87,7 @@ namespace WebAccessibilityChecker
                 }
                 else if (columnName == StandardTableKeyNames.ErrorCode)
                 {
-                    content = RuleId;
+                    content = _errors[index].Id;
                 }
                 else if (columnName == StandardTableKeyNames.ProjectName)
                 {

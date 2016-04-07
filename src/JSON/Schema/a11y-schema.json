@@ -102,60 +102,192 @@
     "rules": {
       "type": "object",
       "properties": {
-        "accesskeys"{ "$ref": "#/definitions/rule" },
-        "area-alt"{ "$ref": "#/definitions/rule" },
-        "aria-allowed-attr"{ "$ref": "#/definitions/rule" },
-        "aria-required-attr"{ "$ref": "#/definitions/rule" },
-        "aria-required-children"{ "$ref": "#/definitions/rule" },
-        "aria-required-parent"{ "$ref": "#/definitions/rule" },
-        "aria-roles"{ "$ref": "#/definitions/rule" },
-        "aria-valid-attr-value"{ "$ref": "#/definitions/rule" },
-        "aria-valid-attr"{ "$ref": "#/definitions/rule" },
-        "audio-caption"{ "$ref": "#/definitions/rule" },
-        "blink"{ "$ref": "#/definitions/rule" },
-        "button-name"{ "$ref": "#/definitions/rule" },
-        "bypass"{ "$ref": "#/definitions/rule" },
-        "checkboxgroup"{ "$ref": "#/definitions/rule" },
-        "color-contrast"{ "$ref": "#/definitions/rule" },
-        "data-table"{ "$ref": "#/definitions/rule" },
-        "definition-list"{ "$ref": "#/definitions/rule" },
-        "dlitem"{ "$ref": "#/definitions/rule" },
-        "document-title"{ "$ref": "#/definitions/rule" },
-        "duplicate-id"{ "$ref": "#/definitions/rule" },
-        "empty-heading"{ "$ref": "#/definitions/rule" },
-        "frame-title"{ "$ref": "#/definitions/rule" },
-        "heading-order"{ "$ref": "#/definitions/rule" },
-        "html-lang"{ "$ref": "#/definitions/rule" },
-        "image-alt"{ "$ref": "#/definitions/rule" },
-        "input-image-alt"{ "$ref": "#/definitions/rule" },
-        "label-title-only"{ "$ref": "#/definitions/rule" },
-        "label"{ "$ref": "#/definitions/rule" },
-        "layout-table"{ "$ref": "#/definitions/rule" },
-        "link-name"{ "$ref": "#/definitions/rule" },
-        "list"{ "$ref": "#/definitions/rule" },
-        "listitem"{ "$ref": "#/definitions/rule" },
-        "marquee"{ "$ref": "#/definitions/rule" },
-        "meta-refresh"{ "$ref": "#/definitions/rule" },
-        "meta-viewport"{ "$ref": "#/definitions/rule" },
-        "object-alt"{ "$ref": "#/definitions/rule" },
-        "radiogroup"{ "$ref": "#/definitions/rule" },
-        "regions"{ "$ref": "#/definitions/rule" },
-        "scope"{ "$ref": "#/definitions/rule" },
-        "server-side-image-map"{ "$ref": "#/definitions/rule" },
-        "skip-link"{ "$ref": "#/definitions/rule" },
-        "tabindex"{ "$ref": "#/definitions/rule" },
-        "valid-lang"{ "$ref": "#/definitions/rule" },
-        "video-caption"{ "$ref": "#/definitions/rule" },
-        "video-description"{ "$ref": "#/definitions/rule" }
+        "accesskeys": {
+          "description": "Ensures every accesskey attribute value is unique",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "area-alt": {
+          "description": "Ensures <area> elements of image maps have alternate text",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "aria-allowed-attr": {
+          "description": "Ensures ARIA attributes are allowed for an element's role",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "aria-required-attr": {
+          "description": "Ensures elements with ARIA roles have all required ARIA attributes",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "aria-required-children": {
+          "description": "Ensures elements with an ARIA role that require child roles contain them",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "aria-required-parent": {
+          "description": "Ensures elements with an ARIA role that require parent roles are contained by them",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "aria-roles": {
+          "description": "Ensures all elements with a role attribute use a valid value",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "aria-valid-attr-value": {
+          "description": "Ensures all ARIA attributes have valid values",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "aria-valid-attr": {
+          "description": " Ensures attributes that begin with aria- are valid ARIA attributes ",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "audio-caption": {
+          "description": "Ensures <audio> elements have captions",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "blink": {
+          "description": "Ensures <blink> elements are not used",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "button-name": {
+          "description": "Ensures buttons have discernible text",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "bypass": {
+          "description": "Ensures each page has at least one mechanism for a user to bypass navigation and jump straight to the content",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "checkboxgroup": {
+          "description": " Ensures related <input type=\"checkbox\"> elements have a group and that that group designation is consistent",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "color-contrast": {
+          "description": " Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "data-table": {
+          "description": "Ensures data tables are marked up semantically and have the correct header structure",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "definition-list": {
+          "description": "Ensures <dl> elements are structured correctly",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "dlitem": {
+          "description": "Ensures <dt> and <dd> elements are contained by a <dl>",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "document-title": {
+          "description": " Ensures each HTML document contains a non-empty <title> element ",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "duplicate-id": {
+          "description": "Ensures every id attribute value is unique",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "empty-heading": {
+          "description": " Ensures headings have discernible text",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "frame-title": {
+          "description": "Ensures <iframe> and <frame> elements contain a unique and non-empty title attribute",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "heading-order": {
+          "description": "Ensures the order of headings is semantically correct",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "html-lang": {
+          "description": "Ensures every HTML document has a lang attribute and its value is valid",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "image-alt": {
+          "description": " Ensures <img> elements have alternate text or a role of none or presentation",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "input-image-alt": {
+          "description": "Ensures <input type=\"image\"> elements have alternate text",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "label-title-only": {
+          "description": "Ensures that every form element is not solely labeled using the title or aria-describedby attributes",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "label": {
+          "description": "Ensures every form element has a label",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "layout-table": {
+          "description": "Ensures presentational <table> elements do not use <th>, <caption> elements or the summary attribute",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "link-name": {
+          "description": "Ensures links have discernible text",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "list": {
+          "description": "Ensures that lists are structured correctly",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "listitem": {
+          "description": "Ensures <li> elements are used semantically",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "marquee": {
+          "description": "Ensures <marquee> elements are not used",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "meta-refresh": {
+          "description": "Ensures <meta http-equiv=\"refresh\"> is not used",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "meta-viewport": {
+          "description": "Ensures <meta name=\"viewport\"> does not disable text scaling and zooming",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "object-alt": {
+          "description": "Ensures <object> elements have alternate text",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "radiogroup": {
+          "description": "Ensures related <input type=\"radio\"> elements have a group and that the group designation is consistent",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "regions": {
+          "description": "Ensures all content is contained within a landmark region",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "scope": {
+          "description": "Ensures the scope attribute is used correctly on tables",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "server-side-image-map": {
+          "description": "Ensures that server-side image maps are not used",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "skip-link": {
+          "description": "Ensures the first link on the page is a skip link",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "tabindex": {
+          "description": "Ensures tabindex attribute values are not greater than 0",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "valid-lang": {
+          "description": "Ensures lang attributes have valid values",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "video-caption": {
+          "description": "Ensures <video> elements have captions",
+          "properties": { "$ref": "#/definitions/rule" }
+        },
+        "video-description": {
+          "description": "Ensures <video> elements have audio descriptions",
+          "properties": { "$ref": "#/definitions/rule" }
+        }
       }
     },
 
     "rule": {
-      "description": "See details at https://dequeuniversity.com/rules/axe/1.1/<rule-name>",
-      "properties": {
-        "enabled": {
-          "type": "boolean"
-        }
+      "enabled": {
+        "type": "boolean"
       }
     }
   },

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using EnvDTE;
 using Microsoft.VisualStudio.Web.BrowserLink;
 using Newtonsoft.Json;
@@ -9,7 +10,7 @@ namespace WebAccessibilityChecker
     public class CheckerExtension : BrowserLinkExtension
     {
         private Project _project;
-        
+
         public CheckerExtension(Project project)
         {
             _project = project;
@@ -21,7 +22,7 @@ namespace WebAccessibilityChecker
                 return;
 
             var dir = new DirectoryInfo(connection.Project.GetRootFolder());
-            string folder = FindWorkingDirectory(dir);
+            string folder = FindConfigFolder(dir);
             string file = Path.Combine(folder, Constants.ConfigFileName);
             string options = "{}";
 
@@ -35,7 +36,7 @@ namespace WebAccessibilityChecker
             base.OnConnected(connection);
         }
 
-        protected virtual string FindWorkingDirectory(DirectoryInfo dir)
+        protected virtual string FindConfigFolder(DirectoryInfo dir)
         {
             while (dir != null)
             {
@@ -46,7 +47,8 @@ namespace WebAccessibilityChecker
                 dir = dir.Parent;
             }
 
-            return Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            var bin = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            return Path.Combine(bin, "JSON\\Schema");
         }
 
         [BrowserLinkCallback]

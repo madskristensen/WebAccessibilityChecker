@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using EnvDTE;
-using EnvDTE80;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.TableControl;
@@ -15,7 +13,7 @@ namespace WebAccessibilityChecker
     {
         private static TableDataSource _instance;
         private readonly List<SinkManager> _managers = new List<SinkManager>();
-        private static Dictionary<string, TableEntriesSnapshot> _snapshots = new Dictionary<string, TableEntriesSnapshot>();
+        private static TableEntriesSnapshot _snapshot;
 
         [Import]
         private ITableManagerProvider TableManagerProvider { get; set; } = null;
@@ -92,62 +90,21 @@ namespace WebAccessibilityChecker
             {
                 foreach (var manager in _managers)
                 {
-                    manager.UpdateSink(_snapshots.Values);
+                    manager.UpdateSink(_snapshot);
                 }
             }
         }
 
         public void AddErrors(IEnumerable<Rule> errors)
         {
-            if (errors == null || !errors.Any())
-                return;
-
-            var cleanErrors = errors;//.Where(e => e != null && !string.IsNullOrEmpty(e.FileName));
-
-            foreach (var error in cleanErrors.GroupBy(t => t.Id))
-            {
-                var snapshot = new TableEntriesSnapshot(error.Key, error);
-                _snapshots[error.Key] = snapshot;
-            }
+            var snapshot = new TableEntriesSnapshot(errors);
+            _snapshot = snapshot;
 
             UpdateAllSinks();
         }
 
-        //public void CleanErrors(IEnumerable<string> ruleIds)
-        //{
-        //    foreach (string id in ruleIds)
-        //    {
-        //        if (_snapshots.ContainsKey(id))
-        //        {
-        //            _snapshots[id].Dispose();
-        //            _snapshots.Remove(id);
-        //        }
-        //    }
-
-        //    lock (_managers)
-        //    {
-        //        foreach (var manager in _managers)
-        //        {
-        //            manager.RemoveSnapshots(ruleIds);
-        //        }
-        //    }
-
-        //    UpdateAllSinks();
-        //}
-
         public void CleanAllErrors()
         {
-            foreach (string ruleId in _snapshots.Keys)
-            {
-                var snapshot = _snapshots[ruleId];
-                if (snapshot != null)
-                {
-                    snapshot.Dispose();
-                }
-            }
-
-            _snapshots.Clear();
-
             lock (_managers)
             {
                 foreach (var manager in _managers)
@@ -155,12 +112,6 @@ namespace WebAccessibilityChecker
                     manager.Clear();
                 }
             }
-        }
-
-        public void BringToFront()
-        {
-            var dte = (DTE2)Package.GetGlobalService(typeof(DTE));
-            dte.ExecuteCommand("View.ErrorList");
         }
     }
 }

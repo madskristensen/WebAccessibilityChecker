@@ -9,7 +9,7 @@ namespace WebAccessibilityChecker
     {
         private readonly ITableDataSink _sink;
         private TableDataSource _errorList;
-        private List<TableEntriesSnapshot> _snapshots = new List<TableEntriesSnapshot>();
+        private TableEntriesSnapshot _snapshot;
 
         internal SinkManager(TableDataSource errorList, ITableDataSink sink)
         {
@@ -24,40 +24,20 @@ namespace WebAccessibilityChecker
             _sink.RemoveAllSnapshots();
         }
 
-        internal void UpdateSink(IEnumerable<TableEntriesSnapshot> snapshots)
+        internal void UpdateSink(TableEntriesSnapshot snapshot)
         {
-            foreach (var snapshot in snapshots)
+            if (_snapshot != null)
             {
-                var existing = _snapshots.FirstOrDefault(s => s.RuleId == snapshot.RuleId);
-
-                if (existing != null)
-                {
-                    _snapshots.Remove(existing);
-                    _sink.ReplaceSnapshot(existing, snapshot);
-                }
-                else
-                {
-                    _sink.AddSnapshot(snapshot);
-                }
-
-                _snapshots.Add(snapshot);
+                _sink.ReplaceSnapshot(_snapshot, snapshot);
             }
-        }
-
-        internal void RemoveSnapshots(IEnumerable<string> files)
-        {
-            foreach (string file in files)
+            else
             {
-                var existing = _snapshots.FirstOrDefault(s => s.RuleId == file);
-
-                if (existing != null)
-                {
-                    _snapshots.Remove(existing);
-                    _sink.RemoveSnapshot(existing);
-                }
+                _sink.AddSnapshot(snapshot);
             }
-        }
 
+            _snapshot = snapshot;
+        }
+        
         public void Dispose()
         {
             // Called when the person who subscribed to the data source disposes of the cookie (== this object) they were given.
