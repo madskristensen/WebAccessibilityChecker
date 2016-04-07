@@ -6,21 +6,54 @@
     <Include href="KnownImageIds.vsct"/>
 
     <Commands package="guidPackage">
+        <Menus>
+            <Menu guid="guidPackageCmdSet" id="Menu" priority="0x0500" type="Menu">
+                <Parent guid="guidBrowserLinkCmdSet" id="IDG_BROWSERLINK_COMMANDS"/>
+                <Strings>
+                    <ButtonText>Web Accessibility Checker</ButtonText>
+                </Strings>
+            </Menu>
+        </Menus>
+
         <Groups>
             <Group guid="guidPackageCmdSet" id="ErrorListGroup" priority="0x0200">
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ERRORLIST"/>
+            </Group>
+            <Group guid="guidPackageCmdSet" id="MenuSubGroup" priority="0x0100">
+                <Parent guid="guidPackageCmdSet" id="Menu"/>
+            </Group>
+            <Group guid="guidPackageCmdSet" id="MenuSettingsGroup" priority="0x0200">
+                <Parent guid="guidPackageCmdSet" id="Menu"/>
             </Group>
         </Groups>
 
         <Buttons>
             <Button guid="guidPackageCmdSet" id="EnableAccessibilityId" priority="0x0100" type="Button">
-                <Parent guid="guidBrowserLinkCmdSet" id="IDG_BROWSERLINK_COMMANDS"/>
+                <Parent guid="guidPackageCmdSet" id="MenuSubGroup"/>
                 <Strings>
                     <ButtonText>Enable Accessibility Checker</ButtonText>
                 </Strings>
             </Button>
 
-            <Button guid="guidPackageCmdSet" id="ClearAllErrorsId" priority="0x0100" type="Button">
+            <Button guid="guidPackageCmdSet" id="SpecifyRules" priority="0x0200" type="Button">
+                <Parent guid="guidPackageCmdSet" id="MenuSubGroup"/>
+                <Icon guid="ImageCatalogGuid" id="Solution"/>
+                <CommandFlag>IconIsMoniker</CommandFlag>
+                <Strings>
+                    <ButtonText>Specify Rules For Solution...</ButtonText>
+                </Strings>
+            </Button>
+
+            <Button guid="guidPackageCmdSet" id="OpenSettings" priority="0x0200" type="Button">
+                <Parent guid="guidPackageCmdSet" id="MenuSettingsGroup"/>
+                <Icon guid="ImageCatalogGuid" id="Settings"/>
+                <CommandFlag>IconIsMoniker</CommandFlag>
+                <Strings>
+                    <ButtonText>Options...</ButtonText>
+                </Strings>
+            </Button>
+
+            <Button guid="guidPackageCmdSet" id="ClearAllErrors" priority="0x0100" type="Button">
                 <Parent guid="guidPackageCmdSet" id="ErrorListGroup"/>
                 <Icon guid="ImageCatalogGuid" id="ClearWindowContent"/>
                 <CommandFlag>IconIsMoniker</CommandFlag>
@@ -36,8 +69,13 @@
 
         <GuidSymbol name="guidPackageCmdSet" value="{762f92d8-926a-4160-8519-badb7cc9a872}">
             <IDSymbol name="ErrorListGroup" value="0x1000" />
+            <IDSymbol name="Menu" value="0x2000" />
+            <IDSymbol name="MenuSubGroup" value="0x3000" />
+            <IDSymbol name="MenuSettingsGroup" value="0x4000" />
             <IDSymbol name="EnableAccessibilityId" value="0x0100" />
-            <IDSymbol name="ClearAllErrorsId" value="0x0200" />
+            <IDSymbol name="ClearAllErrors" value="0x0200" />
+            <IDSymbol name="SpecifyRules" value="0x0300" />
+            <IDSymbol name="OpenSettings" value="0x0400" />
         </GuidSymbol>
 
         <GuidSymbol name="guidBrowserLinkCmdSet" value="{30947ebe-9147-45f9-96cf-401bfc671a82}">

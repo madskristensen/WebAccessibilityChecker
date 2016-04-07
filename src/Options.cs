@@ -5,7 +5,7 @@ namespace WebAccessibilityChecker
 {
     public class Options: DialogPage
     {
-        [Category(Vsix.Name)]
+        [Category("General")]
         [DisplayName("Enabled")]
         [Description("Enables the accessibility checker.")]
         [DefaultValue(true)]

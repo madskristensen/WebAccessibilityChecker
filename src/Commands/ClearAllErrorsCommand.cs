@@ -22,7 +22,7 @@ namespace WebAccessibilityChecker
             OleMenuCommandService commandService = ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
             {
-                var id = new CommandID(PackageGuids.guidPackageCmdSet, PackageIds.ClearAllErrorsId);
+                var id = new CommandID(PackageGuids.guidPackageCmdSet, PackageIds.ClearAllErrors);
                 var cmd = new MenuCommand(MenuItemCallback, id);
                 commandService.AddCommand(cmd);
             }

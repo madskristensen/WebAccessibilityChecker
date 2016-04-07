@@ -27,6 +27,8 @@ namespace WebAccessibilityChecker
 
             EnableCommand.Initialize(this);
             ClearAllErrorsCommand.Initialize(this);
+            OpenSettingsCommand.Initialize(this);
+            SpecifyRulesCommand.Initialize(this);
 
             base.Initialize();
         }

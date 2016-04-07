@@ -25,13 +25,13 @@ namespace WebAccessibilityChecker
 
             if (fileName.Equals(Constants.ConfigFileName, StringComparison.OrdinalIgnoreCase))
             {
-                return GetSchemaFileName("json\\schema\\a11y-schema.json");
+                return GetFileName("json\\schema\\a11y-schema.json");
             }
 
             return null;
         }
 
-        private static string GetSchemaFileName(string relativePath)
+        public static string GetFileName(string relativePath)
         {
             string assembly = Assembly.GetExecutingAssembly().Location;
             string folder = Path.GetDirectoryName(assembly);
