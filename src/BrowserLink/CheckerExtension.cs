@@ -57,8 +57,15 @@ namespace WebAccessibilityChecker
         [BrowserLinkCallback]
         public void ProcessResult(string jsonResult)
         {
-            var result = JsonConvert.DeserializeObject<AccessibilityResult>(jsonResult);
-            ErrorListService.ProcessLintingResults(result, true);
+            try
+            {
+                var result = JsonConvert.DeserializeObject<AccessibilityResult>(jsonResult);
+                ErrorListService.ProcessLintingResults(result, true);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
         }
     }
 }

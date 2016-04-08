@@ -6,8 +6,8 @@ namespace WebAccessibilityChecker
     public class Options: DialogPage
     {
         [Category("General")]
-        [DisplayName("Enabled")]
-        [Description("Enables the accessibility checker.")]
+        [DisplayName("Auto-run")]
+        [Description("Determines if the the accessiblity checker should run automatically on page load.")]
         [DefaultValue(true)]
         public bool Enabled { get; set; } = true;
 

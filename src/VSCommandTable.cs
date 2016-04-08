@@ -32,6 +32,7 @@ namespace WebAccessibilityChecker
         public const int ClearAllErrors = 0x0200;
         public const int SpecifyRules = 0x0300;
         public const int OpenSettings = 0x0400;
+        public const int RunNow = 0x0500;
         public const int IDG_BROWSERLINK_COMMANDS = 0x2001;
     }
 }
