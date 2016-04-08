@@ -9,8 +9,8 @@ namespace WebAccessibilityChecker
     {
         public string Url { get; set; }
 
-        public List<Rule> Violations { get; set; }
-        public List<Rule> Passes { get; set; }
+        public IEnumerable<Rule> Violations { get; set; }
+        public IEnumerable<Rule> Passes { get; set; }
     }
 
     class Rule
@@ -69,7 +69,7 @@ namespace WebAccessibilityChecker
         {
             if (Line != 0 || Column != 0 || Position == -1 || string.IsNullOrEmpty(FileName))
                 return;
-            
+
             int lineCount = 0;
             int columnCount = 0;
             int bufferPos = 0;
@@ -80,7 +80,7 @@ namespace WebAccessibilityChecker
                 char[] buffer = new char[Position];
                 reader.ReadBlock(buffer, 0, Position);
 
-                while (bufferPos < Position) 
+                while (bufferPos < Position)
                 {
                     if (buffer[bufferPos] == '\r')
                     {
@@ -99,6 +99,24 @@ namespace WebAccessibilityChecker
 
             Line = lineCount;
             Column = columnCount - (hasBackslashN ? 1 : 0);
+        }
+
+        public override bool Equals(object obj)
+        {
+            var cast = obj as Rule;
+
+            if (cast == null)
+                return false;
+
+            var thisHash = GetHashCode();
+            var objHash = cast.GetHashCode();
+
+            return thisHash.Equals(objHash);
+        }
+
+        public override int GetHashCode()
+        {
+            return $"{Id} {FileName} {Position}".GetHashCode();
         }
     }
 }

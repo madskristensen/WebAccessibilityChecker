@@ -13,30 +13,34 @@ namespace WebAccessibilityChecker
     {
         private string _projectName;
         private DTE2 _dte;
-        private readonly List<Rule> _errors = new List<Rule>();
 
-        internal TableEntriesSnapshot(IEnumerable<Rule> errors)
+        internal TableEntriesSnapshot(AccessibilityResult result)
         {
-            _errors.AddRange(errors);
+            Errors.AddRange(result.Violations);
             _dte = (DTE2)Package.GetGlobalService(typeof(DTE));
+            Url = result.Url;
         }
+
+        public List<Rule> Errors { get; } = new List<Rule>();
 
         public override int VersionNumber { get; } = 1;
 
         public override int Count
         {
-            get { return _errors.Count; }
+            get { return Errors.Count; }
         }
+
+        public string Url { get; set; }
 
         public override bool TryGetValue(int index, string columnName, out object content)
         {
             content = null;
 
-            if ((index >= 0) && (index < _errors.Count))
+            if ((index >= 0) && (index < Errors.Count))
             {
                 if (columnName == StandardTableKeyNames.DocumentName)
                 {
-                    content = _errors[index].FileName;
+                    content = Errors[index].FileName;
                 }
                 else if (columnName == StandardTableKeyNames.ErrorCategory)
                 {
@@ -48,20 +52,21 @@ namespace WebAccessibilityChecker
                 }
                 else if (columnName == StandardTableKeyNames.Line)
                 {
-                    content = _errors[index].Line;
+                    content = Errors[index].Line;
                 }
                 else if (columnName == StandardTableKeyNames.Column)
                 {
-                    content = _errors[index].Column;
+                    content = Errors[index].Column;
                 }
                 else if (columnName == StandardTableKeyNames.Text)
                 {
-                    content = _errors[index].Help;
+                    content = Errors[index].Help;
                 }
                 else if (columnName == StandardTableKeyNames.FullText || columnName == StandardTableKeyNames.Text)
                 {
-                    content = _errors[index].Description + "\r\n\r\n" +
-                              "HTML: " +_errors[index].Html;
+                    content = Errors[index].Description + "\r\n\r\n" +
+                              "URL: " + Url + "\r\n" +
+                              "HTML: " + Errors[index].Html;
                 }
                 else if (columnName == StandardTableKeyNames.PriorityImage)
                 {
@@ -69,7 +74,7 @@ namespace WebAccessibilityChecker
                 }
                 else if (columnName == StandardTableKeyNames.ErrorSeverity)
                 {
-                    content = _errors[index].GetSeverity();
+                    content = Errors[index].GetSeverity();
                 }
                 else if (columnName == StandardTableKeyNames.Priority)
                 {
@@ -85,13 +90,13 @@ namespace WebAccessibilityChecker
                 }
                 else if (columnName == StandardTableKeyNames.ErrorCode)
                 {
-                    content = _errors[index].Id;
+                    content = Errors[index].Id;
                 }
                 else if (columnName == StandardTableKeyNames.ProjectName)
                 {
-                    if (string.IsNullOrEmpty(_projectName) && !string.IsNullOrEmpty(_errors[index].FileName))
+                    if (string.IsNullOrEmpty(_projectName) && !string.IsNullOrEmpty(Errors[index].FileName))
                     {
-                        var _item = _dte.Solution.FindProjectItem(_errors[index].FileName);
+                        var _item = _dte.Solution.FindProjectItem(Errors[index].FileName);
 
                         if (_item != null && _item.Properties != null && _item.ContainingProject != null)
                             _projectName = _item.ContainingProject.Name;
@@ -101,7 +106,7 @@ namespace WebAccessibilityChecker
                 }
                 else if ((columnName == StandardTableKeyNames.ErrorCodeToolTip) || (columnName == StandardTableKeyNames.HelpLink))
                 {
-                    var error = _errors[index];
+                    var error = Errors[index];
                     string url;
 
                     if (!string.IsNullOrEmpty(error.HelpUrl))
@@ -110,7 +115,7 @@ namespace WebAccessibilityChecker
                     }
                     else
                     {
-                        url = string.Format("http://www.bing.com/search?q={0} {1}", Vsix.Name, _errors[index].Id);
+                        url = string.Format("http://www.bing.com/search?q={0} {1}", Vsix.Name, Errors[index].Id);
                     }
 
                     content = Uri.EscapeUriString(url);

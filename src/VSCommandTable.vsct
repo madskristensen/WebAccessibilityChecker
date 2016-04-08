@@ -39,7 +39,7 @@
                 <Parent guid="guidPackageCmdSet" id="MenuSubGroup"/>
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
-                    <ButtonText>Run Now...</ButtonText>
+                    <ButtonText>Run Now in All Browsers...</ButtonText>
                 </Strings>
             </Button>
 

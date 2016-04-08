@@ -6,24 +6,23 @@ namespace WebAccessibilityChecker
 {
     class ErrorListService
     {
-        public static void ProcessLintingResults(AccessibilityResult result, bool showErrorList)
+        public static void ProcessLintingResults(AccessibilityResult result)
         {
-            TableDataSource.Instance.CleanAllErrors();
-            IEnumerable<Rule> rules = result.Violations;
+            TableDataSource.Instance.CleanErrors(result.Url);
 
             if (!VSPackage.Options.ShowWarnings)
             {
-                rules = rules.Where(r => r.GetSeverity() != __VSERRORCATEGORY.EC_WARNING);
+               result.Violations = result.Violations.Where(r => r.GetSeverity() != __VSERRORCATEGORY.EC_WARNING);
             }
 
             if (!VSPackage.Options.ShowMessages)
             {
-                rules = rules.Where(r => r.GetSeverity() != __VSERRORCATEGORY.EC_MESSAGE);
+                result.Violations = result.Violations.Where(r => r.GetSeverity() != __VSERRORCATEGORY.EC_MESSAGE);
             }
 
-            if (rules.Any())
+            if (result.Violations.Any())
             {
-                TableDataSource.Instance.AddErrors(rules);
+                TableDataSource.Instance.AddErrors(result);
             }
         }
     }

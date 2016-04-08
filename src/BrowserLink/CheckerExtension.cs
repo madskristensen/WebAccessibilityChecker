@@ -31,19 +31,20 @@ namespace WebAccessibilityChecker
             if (!_connections.Contains(connection))
                 _connections.Add(connection);
 
-            CheckA11y(connection);
+            if (VSPackage.Options.Enabled)
+                CheckA11y(3000, connection);
 
             base.OnConnected(connection);
         }
 
-        public void CheckA11y(BrowserLinkConnection connection = null)
+        public void CheckA11y(int delay = 0, params BrowserLinkConnection[] connections)
         {
-            connection = connection ?? _connections.FirstOrDefault();
+            connections = (connections == null || connections.Length == 0) ? _connections.ToArray() : connections;
 
-            if (connection == null)
+            if (connections == null || connections.Length == 0)
                 return;
 
-            var dir = new DirectoryInfo(connection.Project.GetRootFolder());
+            var dir = new DirectoryInfo(connections.First().Project.GetRootFolder());
             string folder = FindConfigFolder(dir);
             string file = Path.Combine(folder, Constants.ConfigFileName);
             string options = "{}";
@@ -55,7 +56,7 @@ namespace WebAccessibilityChecker
                 options = obj.ToString();
             }
 
-            Browsers.Client(connection).Invoke("check", options);
+            Browsers.Clients(connections).Invoke("check", options);
         }
 
         public override void OnDisconnecting(BrowserLinkConnection connection)
@@ -87,7 +88,7 @@ namespace WebAccessibilityChecker
             try
             {
                 var result = JsonConvert.DeserializeObject<AccessibilityResult>(jsonResult);
-                ErrorListService.ProcessLintingResults(result, true);
+                ErrorListService.ProcessLintingResults(result);
             }
             catch (Exception ex)
             {

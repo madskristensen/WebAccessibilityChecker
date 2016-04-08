@@ -13,7 +13,7 @@ namespace WebAccessibilityChecker
     {
         private static TableDataSource _instance;
         private readonly List<SinkManager> _managers = new List<SinkManager>();
-        private static TableEntriesSnapshot _snapshot;
+        private static Dictionary<string, TableEntriesSnapshot> _snapshots = new Dictionary<string, TableEntriesSnapshot>();
 
         [Import]
         private ITableManagerProvider TableManagerProvider { get; set; } = null;
@@ -24,11 +24,11 @@ namespace WebAccessibilityChecker
             compositionService.DefaultCompositionService.SatisfyImportsOnce(this);
 
             var manager = TableManagerProvider.GetTableManager(StandardTables.ErrorsTable);
-            manager.AddSource(this, StandardTableColumnDefinitions.DetailsExpander, StandardTableColumnDefinitions.DocumentName,
-                                     StandardTableColumnDefinitions.ErrorSeverity, StandardTableColumnDefinitions.ErrorCode,
-                                     StandardTableColumnDefinitions.ErrorSource, StandardTableColumnDefinitions.BuildTool,
-                                     StandardTableColumnDefinitions.ErrorCategory, StandardTableColumnDefinitions.Text,
-                                     StandardTableColumnDefinitions.Line, StandardTableColumnDefinitions.Column);
+            manager.AddSource(this, StandardTableColumnDefinitions.DetailsExpander,
+                                                   StandardTableColumnDefinitions.ErrorSeverity, StandardTableColumnDefinitions.ErrorCode,
+                                                   StandardTableColumnDefinitions.ErrorSource, StandardTableColumnDefinitions.BuildTool,
+                                                   StandardTableColumnDefinitions.ErrorSource, StandardTableColumnDefinitions.ErrorCategory,
+                                                   StandardTableColumnDefinitions.Text, StandardTableColumnDefinitions.DocumentName, StandardTableColumnDefinitions.Line, StandardTableColumnDefinitions.Column);
         }
 
         public static TableDataSource Instance
@@ -90,21 +90,59 @@ namespace WebAccessibilityChecker
             {
                 foreach (var manager in _managers)
                 {
-                    manager.UpdateSink(_snapshot);
+                    manager.UpdateSink(_snapshots.Values);
                 }
             }
         }
 
-        public void AddErrors(IEnumerable<Rule> errors)
+        public void AddErrors(AccessibilityResult result)
         {
-            var snapshot = new TableEntriesSnapshot(errors);
-            _snapshot = snapshot;
+            if (result == null || !result.Violations.Any())
+                return;
+
+            result.Violations = result.Violations.Where(v => !_snapshots.Any(s => s.Value.Errors.Contains(v)));
+
+            var snapshot = new TableEntriesSnapshot(result);
+            _snapshots[result.Url] = snapshot;
+
+            UpdateAllSinks();
+        }
+
+        public void CleanErrors(params string[] urls)
+        {
+            foreach (string url in urls)
+            {
+                if (_snapshots.ContainsKey(url))
+                {
+                    _snapshots[url].Dispose();
+                    _snapshots.Remove(url);
+                }
+            }
+
+            lock (_managers)
+            {
+                foreach (var manager in _managers)
+                {
+                    manager.RemoveSnapshots(urls);
+                }
+            }
 
             UpdateAllSinks();
         }
 
         public void CleanAllErrors()
         {
+            foreach (string url in _snapshots.Keys)
+            {
+                var snapshot = _snapshots[url];
+                if (snapshot != null)
+                {
+                    snapshot.Dispose();
+                }
+            }
+
+            _snapshots.Clear();
+
             lock (_managers)
             {
                 foreach (var manager in _managers)
@@ -112,6 +150,8 @@ namespace WebAccessibilityChecker
                     manager.Clear();
                 }
             }
+
+            UpdateAllSinks();
         }
     }
 }

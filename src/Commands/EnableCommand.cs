@@ -21,7 +21,7 @@ namespace WebAccessibilityChecker
                 commandService.AddCommand(cmd);
             }
         }
-        
+
         public static EnableCommand Instance { get; private set; }
 
         private IServiceProvider ServiceProvider
@@ -46,7 +46,7 @@ namespace WebAccessibilityChecker
 
             VSPackage.Options.Enabled = !button.Checked;
             VSPackage.Options.SaveSettingsToStorage();
-            
+
             if (button.Checked)
             {
                 TableDataSource.Instance.CleanAllErrors();

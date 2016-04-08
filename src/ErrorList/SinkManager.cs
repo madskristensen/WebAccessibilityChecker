@@ -9,7 +9,7 @@ namespace WebAccessibilityChecker
     {
         private readonly ITableDataSink _sink;
         private TableDataSource _errorList;
-        private TableEntriesSnapshot _snapshot;
+        private List<TableEntriesSnapshot> _snapshots = new List<TableEntriesSnapshot>();
 
         internal SinkManager(TableDataSource errorList, ITableDataSink sink)
         {
@@ -24,20 +24,40 @@ namespace WebAccessibilityChecker
             _sink.RemoveAllSnapshots();
         }
 
-        internal void UpdateSink(TableEntriesSnapshot snapshot)
+        internal void UpdateSink(IEnumerable<TableEntriesSnapshot> snapshots)
         {
-            if (_snapshot != null)
+            foreach (var snapshot in snapshots)
             {
-                _sink.ReplaceSnapshot(_snapshot, snapshot);
-            }
-            else
-            {
-                _sink.AddSnapshot(snapshot);
-            }
+                var existing = _snapshots.FirstOrDefault(s => s.Url == snapshot.Url);
 
-            _snapshot = snapshot;
+                if (existing != null)
+                {
+                    _snapshots.Remove(existing);
+                    _sink.ReplaceSnapshot(existing, snapshot);
+                }
+                else
+                {
+                    _sink.AddSnapshot(snapshot);
+                }
+
+                _snapshots.Add(snapshot);
+            }
         }
-        
+
+        internal void RemoveSnapshots(IEnumerable<string> urls)
+        {
+            foreach (string url in urls)
+            {
+                var existing = _snapshots.FirstOrDefault(s => s.Url == url);
+
+                if (existing != null)
+                {
+                    _snapshots.Remove(existing);
+                    _sink.RemoveSnapshot(existing);
+                }
+            }
+        }
+
         public void Dispose()
         {
             // Called when the person who subscribed to the data source disposes of the cookie (== this object) they were given.
