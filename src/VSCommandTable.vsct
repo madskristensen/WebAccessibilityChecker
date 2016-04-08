@@ -37,8 +37,9 @@
 
             <Button guid="guidPackageCmdSet" id="RunNow" priority="0x0200" type="Button">
                 <Parent guid="guidPackageCmdSet" id="MenuSubGroup"/>
+                <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
-                    <ButtonText>Run in Current Browsers...</ButtonText>
+                    <ButtonText>Run Now...</ButtonText>
                 </Strings>
             </Button>
 

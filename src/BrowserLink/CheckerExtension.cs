@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using EnvDTE;
@@ -10,16 +12,35 @@ namespace WebAccessibilityChecker
 {
     public class CheckerExtension : BrowserLinkExtension
     {
-        private Project _project;
+        private List<BrowserLinkConnection> _connections = new List<BrowserLinkConnection>();
 
-        public CheckerExtension(Project project)
-        {
-            _project = project;
-        }
+        private CheckerExtension()
+        { }
+
+        public static CheckerExtension Instance { get; } = new CheckerExtension();
+
+        public bool HasConnections =>
+            _connections.Count > 0;
+
 
         public override void OnConnected(BrowserLinkConnection connection)
         {
             if (connection.Project == null)
+                return;
+
+            if (!_connections.Contains(connection))
+                _connections.Add(connection);
+
+            CheckA11y(connection);
+
+            base.OnConnected(connection);
+        }
+
+        public void CheckA11y(BrowserLinkConnection connection = null)
+        {
+            connection = connection ?? _connections.FirstOrDefault();
+
+            if (connection == null)
                 return;
 
             var dir = new DirectoryInfo(connection.Project.GetRootFolder());
@@ -34,9 +55,15 @@ namespace WebAccessibilityChecker
                 options = obj.ToString();
             }
 
-            Browsers.Client(connection).Invoke("initialize", options);
+            Browsers.Client(connection).Invoke("check", options);
+        }
 
-            base.OnConnected(connection);
+        public override void OnDisconnecting(BrowserLinkConnection connection)
+        {
+            if (_connections.Contains(connection))
+                _connections.Remove(connection);
+
+            base.OnDisconnecting(connection);
         }
 
         protected virtual string FindConfigFolder(DirectoryInfo dir)

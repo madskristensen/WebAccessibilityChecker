@@ -53,6 +53,7 @@
     <Compile Include="BrowserLink\CheckerExtension.cs" />
     <Compile Include="BrowserLink\CheckerFactory.cs" />
     <Compile Include="Commands\ClearAllErrorsCommand.cs" />
+    <Compile Include="Commands\RunNowCommand.cs" />
     <Compile Include="Commands\SpecifyRulesCommand.cs" />
     <Compile Include="Commands\OpenSettingsCommand.cs" />
     <Compile Include="Commands\EnableCommand.cs" />

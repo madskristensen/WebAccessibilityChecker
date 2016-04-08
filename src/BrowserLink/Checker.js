@@ -32,12 +32,17 @@
     //[axe.js]
 
     return {
-        initialize: function (options) {
+        check: function (options) {
 
-            setTimeout(function () {
-                var json = JSON.parse(options);
-                axe.a11yCheck(document, json, check);
-            }, 800);
+            var json = JSON.parse(options);
+            var id = setInterval(function () {
+
+                if (browserLink.sourceMapping) {
+                    axe.a11yCheck(document, json, check);
+                    clearInterval(id);
+                }
+
+            }, 50);
         }
     };
 });

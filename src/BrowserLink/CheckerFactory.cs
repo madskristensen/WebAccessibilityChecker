@@ -31,7 +31,7 @@ namespace WebAccessibilityChecker
             if (connection.Project == null)
                 return null;
 
-            return new CheckerExtension(connection.Project);
+            return CheckerExtension.Instance;
         }
 
         public string GetScript()
