@@ -48,7 +48,7 @@
                 <Icon guid="ImageCatalogGuid" id="Solution"/>
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <Strings>
-                    <ButtonText>Specify Rules For Solution...</ButtonText>
+                    <ButtonText>Specify Rules for Solution...</ButtonText>
                 </Strings>
             </Button>
 

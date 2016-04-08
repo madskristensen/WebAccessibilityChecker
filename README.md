@@ -37,14 +37,44 @@ toolbar lets you know if Browser Link is connected.
 
 ![Browser Link Tooltip](art/browser-link-tooltip.png)
 
-### Enable Web Accessibility Checker
-Make sure Web Accessibility Checker is enabled, but clicking
-the _Enable Accessibility Checker_ button in the Browser Link
-dropdown menu.
+## Commands
+The Browser Link dropdown menu hosts the _Web Accessibility Checker_
+sub menu.
 
 ![Dropdown menu](art/dropdown-menu.png)
 
-### Accessibility rules
+There are multiple command buttons in the menu.
+
+### Auto-Run on Page Load
+This will automatically run the accessibility checker every
+time a page loads in the browser - any browser.
+
+### Run Now in All Browsers...
+In addition to auto-running the checker on page load, doing it
+on demand can be helpful when you need to interact with the
+page to get it into a state you want to check.
+
+This is also a great way of running on demand only if you disable
+_Auto-Run on Page Load_.
+
+### Specify Fules For Solution...
+Clicking this command will add a configuration file to the
+solution.
+
+![a11y config file](art/config-file.png)
+
+It's a JSON file containing all the rules being run. You can
+customize it by adding and removing rules and there is full
+Intellisense for all the rules.
+
+![Config Intellisense](art/config-intellisense.png)
+
+### Settings
+Some global settings can be configured in the option dialog.
+
+![Options dialog](art/options.png)
+
+## Accessibility rules
 This extensions uses the [axe-core](https://github.com/dequelabs/axe-core)
 library to perform the accessibility analysis.
 
@@ -54,7 +84,7 @@ project or solution.
 See the full 
 [list of rules](https://dequeuniversity.com/rules/axe/1.1)
 
-### Error list
+## Error list
 Errors found on the page will automatically populate the
 Error List in Visual Studio.
 
@@ -64,10 +94,10 @@ In some cases it is known exactly where in the source code
 the issue is and double-clicking the error take you straight
 to the location.
 
-### Settings
-Some global settings can be configured in the option dialog.
+To clear all accessbility errors from the Error List, simply
+right-click and hit _Clear All Accessibility Errors_.
 
-![Options dialog](art/options.png)
+![Error List context menu](art/error-list-context-menu.png)
 
 ## Contribute
 Check out the [contribution guidelines](.github/CONTRIBUTING.md)
