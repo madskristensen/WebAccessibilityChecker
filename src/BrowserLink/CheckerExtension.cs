@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.Web.BrowserLink;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -23,7 +21,7 @@ namespace WebAccessibilityChecker
             _connections.Count > 0;
 
 
-        public override async void OnConnected(BrowserLinkConnection connection)
+        public override void OnConnected(BrowserLinkConnection connection)
         {
             if (connection.Project == null)
                 return;
@@ -32,11 +30,7 @@ namespace WebAccessibilityChecker
                 _connections.Add(connection);
 
             if (VSPackage.Options.Enabled)
-            {
-                // Delay to make sure source mapping has loaded
-                await Task.Delay(500);
                 CheckA11y(connection);
-            }
 
             base.OnConnected(connection);
         }

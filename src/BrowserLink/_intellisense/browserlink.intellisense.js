@@ -50,6 +50,14 @@ var bl = {
             /// </signature>
         },
 
+        "ensureUpToDateAsync": function(){
+            /// <signature>
+            ///   <summary>Makes sure source mapping has been loaded and then calls the callback function.</summary>
+            ///   <param name="callback" type="function">A function callback that take no parameters.</param>
+            ///   <returns type="Boolean" />
+            /// </signature>
+        },
+
         "getCompleteRange": function () {
             /// <signature>
             ///   <summary>Checks if the specified DOM element can be mapped to server source.</summary>
@@ -70,7 +78,7 @@ var bl = {
         "getStartTagRange": function () {
             /// <signature>
             ///   <summary>Checks if the specified DOM element can be mapped to server source.</summary>
-            ///   <param name="element" type="Element">The DOM element to test against server-side mapping.</param>
+            ///   <param name="callback" type="Element">The DOM element to test against server-side mapping.</param>
             ///   <returns type="sourceMap" />
             /// </signature>
         },

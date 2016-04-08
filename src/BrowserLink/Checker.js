@@ -6,7 +6,7 @@
 
     var project;
 
-    function check(results) {
+    function runAxe(results) {
 
         results.project = project;
 
@@ -29,19 +29,23 @@
                 results.violations[i].position = sourcemap.startPosition;
             }
         }
-
+        console.log(browserLink, browserLink.sourceMapping);
         browserLink.invoke("ProcessResult", JSON.stringify(results));
+    }
+
+    function check(options, projectName) {
+
+        var json = JSON.parse(options);
+        project = projectName;
+
+        browserLink.sourceMapping.ensureUpToDateAsync(function () {
+            axe.a11yCheck(document, json, runAxe);
+        });
     }
 
     //[axe.js]
 
     return {
-        check: function (options, projectName) {
-
-            var json = JSON.parse(options);
-
-            project = projectName;
-            axe.a11yCheck(document, json, check);
-        }
+        check: check
     };
 });
