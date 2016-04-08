@@ -3,7 +3,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/q0xapaawd7mfxfby?svg=true)](https://ci.appveyor.com/project/madskristensen/webaccessibilitychecker)
 
 Download the extension at the
-[VS Gallery](https://visualstudiogallery.msdn.microsoft.com/46eef4d9-045b-4596-bd7f-eee980bb5450)
+[VS Gallery](https://visualstudiogallery.msdn.microsoft.com/3aabefab-1681-4fea-8f95-6a62e2f0f1ec)
 or get the
 [CI build](http://vsixgallery.com/extension/25a79d25-0fff-4748-afaa-3a67ed116bc9/)
 
