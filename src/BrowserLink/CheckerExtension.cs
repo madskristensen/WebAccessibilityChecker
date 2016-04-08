@@ -4,6 +4,7 @@ using System.Reflection;
 using EnvDTE;
 using Microsoft.VisualStudio.Web.BrowserLink;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace WebAccessibilityChecker
 {
@@ -28,7 +29,9 @@ namespace WebAccessibilityChecker
 
             if (File.Exists(file))
             {
-                options = File.ReadAllText(file);
+                file = File.ReadAllText(file);
+                var obj = JObject.Parse(file, new JsonLoadSettings { CommentHandling = CommentHandling.Ignore });
+                options = obj.ToString();
             }
 
             Browsers.Client(connection).Invoke("initialize", options);

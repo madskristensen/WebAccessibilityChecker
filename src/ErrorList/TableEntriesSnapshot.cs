@@ -56,14 +56,14 @@ namespace WebAccessibilityChecker
                 }
                 else if (columnName == StandardTableKeyNames.Text)
                 {
-                    content = $"{_errors[index].Help} ({string.Join(", ", _errors[index].Tags)})";
+                    content = _errors[index].Help;
                 }
                 else if (columnName == StandardTableKeyNames.FullText || columnName == StandardTableKeyNames.Text)
                 {
                     content = _errors[index].Help + "\r\n" +
                               _errors[index].Description + "\r\n\r\n" +
                               "Tags: " + string.Join(", ", _errors[index].Tags ?? new List<string>()) + "\r\n" +
-                              _errors[index].Html;
+                              "HTML: " +_errors[index].Html;
                 }
                 else if (columnName == StandardTableKeyNames.PriorityImage)
                 {

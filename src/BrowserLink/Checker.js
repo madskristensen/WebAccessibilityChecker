@@ -22,7 +22,7 @@
             if (hasSourceMap) {
                 var sourcemap = browserLink.sourceMapping.getCompleteRange(element);
                 results.violations[i].fileName = sourcemap.sourcePath;
-                results.violations[i].position = sourcemap.startPosition
+                results.violations[i].position = sourcemap.startPosition;
             }
         }
 
