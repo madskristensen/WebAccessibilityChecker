@@ -28,7 +28,7 @@ namespace WebAccessibilityChecker
 
         public BrowserLinkExtension CreateExtensionInstance(BrowserLinkConnection connection)
         {
-            if (connection.Project == null)
+            if (connection.Project == null || !VSPackage.Options.Enabled)
                 return null;
 
             return CheckerExtension.Instance;

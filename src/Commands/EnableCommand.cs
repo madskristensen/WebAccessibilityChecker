@@ -37,14 +37,14 @@ namespace WebAccessibilityChecker
         private void BeforeQueryStatus(object sender, EventArgs e)
         {
             var button = (MenuCommand)sender;
-            button.Checked = VSPackage.Options.Enabled;
+            button.Checked = VSPackage.Options.RunOnPageLoad;
         }
 
         private void MenuItemCallback(object sender, EventArgs e)
         {
             var button = (MenuCommand)sender;
 
-            VSPackage.Options.Enabled = !button.Checked;
+            VSPackage.Options.RunOnPageLoad = !button.Checked;
             VSPackage.Options.SaveSettingsToStorage();
 
             if (button.Checked)

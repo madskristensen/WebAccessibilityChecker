@@ -31,12 +31,14 @@
             <Button guid="guidPackageCmdSet" id="EnableAccessibilityId" priority="0x0100" type="Button">
                 <Parent guid="guidPackageCmdSet" id="MenuSubGroup"/>
                 <Strings>
-                    <ButtonText>Auto-Run on Page Load</ButtonText>
+                    <ButtonText>Run on Page Load</ButtonText>
                 </Strings>
             </Button>
 
             <Button guid="guidPackageCmdSet" id="RunNow" priority="0x0200" type="Button">
                 <Parent guid="guidPackageCmdSet" id="MenuSubGroup"/>
+                <Icon guid="ImageCatalogGuid" id="Accessibility"/>
+                <CommandFlag>IconIsMoniker</CommandFlag>
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
                     <ButtonText>Run Now in All Browsers...</ButtonText>

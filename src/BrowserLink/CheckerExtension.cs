@@ -29,7 +29,7 @@ namespace WebAccessibilityChecker
             if (!_connections.Contains(connection))
                 _connections.Add(connection);
 
-            if (VSPackage.Options.Enabled)
+            if (VSPackage.Options.RunOnPageLoad)
                 CheckA11y(connection);
 
             base.OnConnected(connection);

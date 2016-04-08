@@ -6,10 +6,16 @@ namespace WebAccessibilityChecker
     public class Options: DialogPage
     {
         [Category("General")]
-        [DisplayName("Auto-run")]
-        [Description("Determines if the the accessiblity checker should run automatically on page load.")]
+        [DisplayName("Enabled")]
+        [Description("Determines if the extension is enabled or not.")]
         [DefaultValue(true)]
         public bool Enabled { get; set; } = true;
+
+        [Category("General")]
+        [DisplayName("Run on page load")]
+        [Description("Determines if the the accessiblity checker should run automatically on page load.")]
+        [DefaultValue(true)]
+        public bool RunOnPageLoad { get; set; } = true;
 
         [Category("Severity")]
         [DisplayName("Show warnings")]
