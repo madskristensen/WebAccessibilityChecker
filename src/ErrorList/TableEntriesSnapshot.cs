@@ -16,8 +16,9 @@ namespace WebAccessibilityChecker
 
         internal TableEntriesSnapshot(AccessibilityResult result)
         {
-            Errors.AddRange(result.Violations);
             _dte = (DTE2)Package.GetGlobalService(typeof(DTE));
+            _projectName = result.Project;
+            Errors.AddRange(result.Violations);
             Url = result.Url;
         }
 
@@ -68,7 +69,7 @@ namespace WebAccessibilityChecker
                               "URL: " + Url + "\r\n" +
                               "HTML: " + Errors[index].Html;
                 }
-                else if (columnName == StandardTableKeyNames.PriorityImage)
+                else if (columnName == StandardTableKeyNames.PriorityImage || columnName == StandardTableKeyNames.ErrorSeverityImage)
                 {
                     content = KnownMonikers.Accessibility;
                 }
@@ -94,31 +95,11 @@ namespace WebAccessibilityChecker
                 }
                 else if (columnName == StandardTableKeyNames.ProjectName)
                 {
-                    if (string.IsNullOrEmpty(_projectName) && !string.IsNullOrEmpty(Errors[index].FileName))
-                    {
-                        var _item = _dte.Solution.FindProjectItem(Errors[index].FileName);
-
-                        if (_item != null && _item.Properties != null && _item.ContainingProject != null)
-                            _projectName = _item.ContainingProject.Name;
-                    }
-
                     content = _projectName;
                 }
                 else if ((columnName == StandardTableKeyNames.ErrorCodeToolTip) || (columnName == StandardTableKeyNames.HelpLink))
                 {
-                    var error = Errors[index];
-                    string url;
-
-                    if (!string.IsNullOrEmpty(error.HelpUrl))
-                    {
-                        url = error.HelpUrl;
-                    }
-                    else
-                    {
-                        url = string.Format("http://www.bing.com/search?q={0} {1}", Vsix.Name, Errors[index].Id);
-                    }
-
-                    content = Uri.EscapeUriString(url);
+                    content = Uri.EscapeUriString(Errors[index].HelpUrl);
                 }
             }
 

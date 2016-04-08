@@ -72,6 +72,10 @@
         </Buttons>
     </Commands>
 
+    <KeyBindings>
+        <KeyBinding guid="guidPackageCmdSet" id="RunNow" mod1="Control Shift" key1="M" editor="guidVSStd97"/>
+    </KeyBindings>
+
     <Symbols>
         <GuidSymbol name="guidPackage" value="{5123051b-3c1d-40e9-aedd-db11ee9f8b9a}" />
 

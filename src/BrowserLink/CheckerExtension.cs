@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
-using EnvDTE;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.Web.BrowserLink;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -23,7 +23,7 @@ namespace WebAccessibilityChecker
             _connections.Count > 0;
 
 
-        public override void OnConnected(BrowserLinkConnection connection)
+        public override async void OnConnected(BrowserLinkConnection connection)
         {
             if (connection.Project == null)
                 return;
@@ -32,31 +32,38 @@ namespace WebAccessibilityChecker
                 _connections.Add(connection);
 
             if (VSPackage.Options.Enabled)
-                CheckA11y(3000, connection);
+            {
+                // Delay to make sure source mapping has loaded
+                await Task.Delay(500);
+                CheckA11y(connection);
+            }
 
             base.OnConnected(connection);
         }
 
-        public void CheckA11y(int delay = 0, params BrowserLinkConnection[] connections)
+        public void CheckA11y(params BrowserLinkConnection[] connections)
         {
             connections = (connections == null || connections.Length == 0) ? _connections.ToArray() : connections;
 
-            if (connections == null || connections.Length == 0)
+            if (connections == null)
                 return;
 
-            var dir = new DirectoryInfo(connections.First().Project.GetRootFolder());
-            string folder = FindConfigFolder(dir);
-            string file = Path.Combine(folder, Constants.ConfigFileName);
-            string options = "{}";
-
-            if (File.Exists(file))
+            foreach (var connection in connections)
             {
-                file = File.ReadAllText(file);
-                var obj = JObject.Parse(file, new JsonLoadSettings { CommentHandling = CommentHandling.Ignore });
-                options = obj.ToString();
-            }
+                var dir = new DirectoryInfo(connection.Project.GetRootFolder());
+                string folder = FindConfigFolder(dir);
+                string file = Path.Combine(folder, Constants.ConfigFileName);
+                string options = "{}";
 
-            Browsers.Clients(connections).Invoke("check", options);
+                if (File.Exists(file))
+                {
+                    file = File.ReadAllText(file);
+                    var obj = JObject.Parse(file, new JsonLoadSettings { CommentHandling = CommentHandling.Ignore });
+                    options = obj.ToString();
+                }
+
+                Browsers.Client(connection).Invoke("check", options, connection.Project.Name);
+            }
         }
 
         public override void OnDisconnecting(BrowserLinkConnection connection)

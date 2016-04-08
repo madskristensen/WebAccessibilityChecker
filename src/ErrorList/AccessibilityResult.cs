@@ -8,6 +8,7 @@ namespace WebAccessibilityChecker
     class AccessibilityResult
     {
         public string Url { get; set; }
+        public string Project { get; set; }
 
         public IEnumerable<Rule> Violations { get; set; }
         public IEnumerable<Rule> Passes { get; set; }

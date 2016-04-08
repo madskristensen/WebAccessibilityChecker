@@ -21,7 +21,7 @@ namespace WebAccessibilityChecker
                 commandService.AddCommand(cmd);
             }
         }
-        
+
         public static RunNowCommand Instance { get; private set; }
 
         private IServiceProvider ServiceProvider
@@ -42,6 +42,7 @@ namespace WebAccessibilityChecker
 
         private void MenuItemCallback(object sender, EventArgs e)
         {
+            TableDataSource.Instance.CleanAllErrors();
             CheckerExtension.Instance.CheckA11y();
         }
     }

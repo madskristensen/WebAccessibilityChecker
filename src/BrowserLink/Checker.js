@@ -4,7 +4,11 @@
     /// <param name="browserLink" value="bl" />
     /// <param name="$" value="jQuery" />
 
+    var project;
+
     function check(results) {
+
+        results.project = project;
 
         for (var i = 0; i < results.violations.length; i++) {
 
@@ -18,25 +22,26 @@
             var target = nodes[0].target[0];
             var element = document.querySelector(target);
             var hasSourceMap = browserLink.sourceMapping.canMapToSource(element);
-            console.log(hasSourceMap, element);
+
             if (hasSourceMap) {
                 var sourcemap = browserLink.sourceMapping.getCompleteRange(element);
                 results.violations[i].fileName = sourcemap.sourcePath;
                 results.violations[i].position = sourcemap.startPosition;
             }
         }
-        console.log(results);
+
         browserLink.invoke("ProcessResult", JSON.stringify(results));
     }
 
     //[axe.js]
 
     return {
-        check: function (delay, options) {
-            setTimeout(function () {
-                var json = JSON.parse(options);
-                axe.a11yCheck(document, json, check);
-            }, delay);
+        check: function (options, projectName) {
+
+            var json = JSON.parse(options);
+
+            project = projectName;
+            axe.a11yCheck(document, json, check);
         }
     };
 });
