@@ -57,7 +57,7 @@ page to get it into a state you want to check.
 This is also a great way of running on demand only if you disable
 _Auto-Run on Page Load_.
 
-### Specify Fules For Solution...
+### Specify Rules for Solution...
 Clicking this command will add a configuration file to the
 solution.
 
