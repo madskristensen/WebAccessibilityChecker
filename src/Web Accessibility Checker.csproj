@@ -318,7 +318,7 @@
   <Import Project="..\packages\Microsoft.VSSDK.BuildTools.14.1.24720\build\Microsoft.VSSDK.BuildTools.targets" Condition="Exists('..\packages\Microsoft.VSSDK.BuildTools.14.1.24720\build\Microsoft.VSSDK.BuildTools.targets')" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties JSON_4Schema_4a11y_1json__JSONSchema="a11y-schema.json" />
+      <UserProperties JSON_4Schema_4_1a11yrc__JSONSchema="a11y-schema.json" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

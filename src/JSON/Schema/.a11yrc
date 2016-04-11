@@ -43,7 +43,7 @@
       "regions",
       "scope",
       "server-side-image-map",
-      "skip-link",
+      //"skip-link",
       "tabindex",
       "valid-lang",
       "video-caption",

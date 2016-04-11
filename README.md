@@ -24,6 +24,7 @@ and support all the major international accessibility standards.
   - Section 508
   - Other best practices
 - All rules can be customzied per project/solution
+- Works with MVC, WebForms, Web Pages and ASP.NET Core projects
 
 ### Connect with Browser Link
 
