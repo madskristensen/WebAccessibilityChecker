@@ -44,6 +44,7 @@ namespace WebAccessibilityChecker
         {
             TableDataSource.Instance.CleanAllErrors();
             CheckerExtension.Instance.CheckA11y();
+            Telemetry.TrackEvent("Run now");
         }
     }
 }

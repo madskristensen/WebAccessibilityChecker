@@ -4,11 +4,11 @@ using Microsoft.VisualStudio.Shell;
 
 namespace WebAccessibilityChecker
 {
-    internal sealed class EnableCommand
+    internal sealed class ToggleAutoRunCommand
     {
         private readonly Package _package;
 
-        private EnableCommand(Package package)
+        private ToggleAutoRunCommand(Package package)
         {
             _package = package;
 
@@ -22,7 +22,7 @@ namespace WebAccessibilityChecker
             }
         }
 
-        public static EnableCommand Instance { get; private set; }
+        public static ToggleAutoRunCommand Instance { get; private set; }
 
         private IServiceProvider ServiceProvider
         {
@@ -31,7 +31,7 @@ namespace WebAccessibilityChecker
 
         public static void Initialize(Package package)
         {
-            Instance = new EnableCommand(package);
+            Instance = new ToggleAutoRunCommand(package);
         }
 
         private void BeforeQueryStatus(object sender, EventArgs e)
@@ -47,9 +47,14 @@ namespace WebAccessibilityChecker
             VSPackage.Options.RunOnPageLoad = !button.Checked;
             VSPackage.Options.SaveSettingsToStorage();
 
-            if (button.Checked)
+            if (VSPackage.Options.RunOnPageLoad)
+            {
+                Telemetry.TrackEvent("Enabled auto-run");
+            }
+            else
             {
                 TableDataSource.Instance.CleanAllErrors();
+                Telemetry.TrackEvent("Disable auto-run");
             }
         }
     }

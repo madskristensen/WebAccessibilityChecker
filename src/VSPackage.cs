@@ -26,7 +26,7 @@ namespace WebAccessibilityChecker
             Telemetry.Initialize(this, Vsix.Version, "1c740e68-eead-45bb-a583-0f1cf4c33100");
 
             ClearAllErrorsCommand.Initialize(this);
-            EnableCommand.Initialize(this);
+            ToggleAutoRunCommand.Initialize(this);
             OpenSettingsCommand.Initialize(this);
             RunNowCommand.Initialize(this);
             SpecifyRulesCommand.Initialize(this);

@@ -56,7 +56,7 @@
     <Compile Include="Commands\RunNowCommand.cs" />
     <Compile Include="Commands\SpecifyRulesCommand.cs" />
     <Compile Include="Commands\OpenSettingsCommand.cs" />
-    <Compile Include="Commands\EnableCommand.cs" />
+    <Compile Include="Commands\ToggleAutoRunCommand.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="ErrorList\AccessibilityResult.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />
