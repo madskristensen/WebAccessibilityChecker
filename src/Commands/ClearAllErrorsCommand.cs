@@ -23,7 +23,8 @@ namespace WebAccessibilityChecker
             if (commandService != null)
             {
                 var id = new CommandID(PackageGuids.guidPackageCmdSet, PackageIds.ClearAllErrors);
-                var cmd = new MenuCommand(MenuItemCallback, id);
+                var cmd = new OleMenuCommand(MenuItemCallback, id);
+                cmd.BeforeQueryStatus += BeforeQueryStatus;
                 commandService.AddCommand(cmd);
             }
         }
@@ -46,6 +47,12 @@ namespace WebAccessibilityChecker
             {
                 TableDataSource.Instance.CleanAllErrors();
             }
+        }
+
+        private void BeforeQueryStatus(object sender, EventArgs e)
+        {
+            var button = (OleMenuCommand)sender;
+            button.Enabled = TableDataSource.Instance.HasErrors;
         }
 
         private void MenuItemCallback(object sender, EventArgs e)

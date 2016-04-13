@@ -16,7 +16,7 @@
         </Menus>
 
         <Groups>
-            <Group guid="guidPackageCmdSet" id="ErrorListGroup" priority="0x0200">
+            <Group guid="guidPackageCmdSet" id="ErrorListGroup" priority="0x0500">
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ERRORLIST"/>
             </Group>
             <Group guid="guidPackageCmdSet" id="MenuSubGroup" priority="0x0100">
@@ -59,7 +59,7 @@
                 <Icon guid="ImageCatalogGuid" id="Settings"/>
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <Strings>
-                    <ButtonText>Options...</ButtonText>
+                    <ButtonText>Accessibility Options...</ButtonText>
                 </Strings>
             </Button>
 
@@ -73,6 +73,12 @@
             </Button>
         </Buttons>
     </Commands>
+
+    <CommandPlacements>
+        <CommandPlacement guid="guidPackageCmdSet" id="OpenSettings" priority="0x0200">
+            <Parent guid="guidPackageCmdSet" id="ErrorListGroup"/>
+        </CommandPlacement>
+    </CommandPlacements>
 
     <KeyBindings>
         <KeyBinding guid="guidPackageCmdSet" id="RunNow" mod1="Control Shift" key1="M" editor="guidVSStd97"/>

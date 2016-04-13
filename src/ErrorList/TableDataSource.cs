@@ -42,6 +42,11 @@ namespace WebAccessibilityChecker
             }
         }
 
+        public bool HasErrors
+        {
+            get { return _snapshots.Any(); }
+        }
+
         #region ITableDataSource members
         public string SourceTypeIdentifier
         {
