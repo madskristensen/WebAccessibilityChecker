@@ -28,7 +28,5 @@ namespace WebAccessibilityChecker
         [Description("Shows accessibility errors classified as informational messages.")]
         [DefaultValue(false)]
         public bool ShowMessages { get; set; }
-
-
     }
 }

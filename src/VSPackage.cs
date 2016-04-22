@@ -13,17 +13,14 @@ namespace WebAccessibilityChecker
     [Guid(PackageGuids.guidPackageString)]
     public sealed class VSPackage : Package
     {
-        public VSPackage()
-        {
-            Options = (Options)GetDialogPage(typeof(Options));
-        }
-
         public static Options Options { get; private set; }
-        
+
         protected override void Initialize()
         {
             Logger.Initialize(this, Vsix.Name);
             Telemetry.Initialize(this, Vsix.Version, "1c740e68-eead-45bb-a583-0f1cf4c33100");
+
+            Options = (Options)GetDialogPage(typeof(Options));
 
             ClearAllErrorsCommand.Initialize(this);
             ToggleAutoRunCommand.Initialize(this);
