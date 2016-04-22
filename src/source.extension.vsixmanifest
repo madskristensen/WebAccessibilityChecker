@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="25a79d25-0fff-4748-afaa-3a67ed116bc9" Version="1.0" Language="en-US" Publisher="Mads Kristensen" />
+        <Identity Id="25a79d25-0fff-4748-afaa-3a67ed116bc9" Version="1.1" Language="en-US" Publisher="Mads Kristensen" />
         <DisplayName>Web Accessibility Checker</DisplayName>
         <Description xml:space="preserve">The easiest way to perform accessibility checks on any ASP.NET web application. Fully customizable and support all the major international accessibility standards.</Description>
         <MoreInfo>https://github.com/madskristensen/WebAccessibilityChecker</MoreInfo>
         <License>Resources\LICENSE</License>
+        <ReleaseNotes>https://github.com/madskristensen/WebAccessibilityChecker/blob/master/CHANGELOG.md</ReleaseNotes>
         <Icon>Resources\Icon.png</Icon>
         <PreviewImage>Resources\Preview.png</PreviewImage>
         <Tags>web, accessibility, a11y, wcag, section 508, wai, asp.net, axe</Tags>

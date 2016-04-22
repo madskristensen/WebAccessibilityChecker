@@ -1,8 +1,6 @@
 # Roadmap
 
-- [x] Fixed bad checkmark state (#4)
-- [x] Delayed package load till web project opens
-- [x] Added a changelog
+- [ ] Nothing yet...
 
 Features that have a checkmark are complete and available for
 download in the
@@ -12,6 +10,14 @@ download in the
 
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
+
+## 1.1
+
+**2016-04-22**
+
+- [x] Fixed bad checkmark state (#4)
+- [x] Delayed package load till web project opens
+- [x] Added a changelog
 
 ## 1.0
 
