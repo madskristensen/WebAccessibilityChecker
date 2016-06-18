@@ -51,8 +51,8 @@ namespace WebAccessibilityChecker
 
                 if (File.Exists(file))
                 {
-                    file = File.ReadAllText(file);
-                    var obj = JObject.Parse(file, new JsonLoadSettings { CommentHandling = CommentHandling.Ignore });
+                    var content = File.ReadAllText(file);
+                    var obj = JObject.Parse(content, new JsonLoadSettings { CommentHandling = CommentHandling.Ignore });
                     options = obj.ToString();
                 }
 

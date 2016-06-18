@@ -47,14 +47,9 @@ namespace WebAccessibilityChecker
             VSPackage.Options.RunOnPageLoad = !button.Checked;
             VSPackage.Options.SaveSettingsToStorage();
 
-            if (VSPackage.Options.RunOnPageLoad)
-            {
-                Telemetry.TrackEvent("Enabled auto-run");
-            }
-            else
+            if (!VSPackage.Options.RunOnPageLoad)
             {
                 TableDataSource.Instance.CleanAllErrors();
-                Telemetry.TrackEvent("Disable auto-run");
             }
         }
     }

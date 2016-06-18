@@ -36,7 +36,6 @@ namespace WebAccessibilityChecker
         private void MenuItemCallback(object sender, EventArgs e)
         {
             _package.ShowOptionPage(typeof(Options));
-            Telemetry.TrackEvent("Open settings");
         }
     }
 }

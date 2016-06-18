@@ -58,7 +58,6 @@ namespace WebAccessibilityChecker
         private void MenuItemCallback(object sender, EventArgs e)
         {
             TableDataSource.Instance.CleanAllErrors();
-            Telemetry.TrackEvent("Clear all errors");
         }
     }
 }
