@@ -29,7 +29,7 @@
                 results.violations[i].position = sourcemap.startPosition;
             }
         }
-        console.log(browserLink, browserLink.sourceMapping);
+
         browserLink.invoke("ProcessResult", JSON.stringify(results));
     }
 
