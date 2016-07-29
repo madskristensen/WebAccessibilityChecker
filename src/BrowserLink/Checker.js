@@ -43,7 +43,7 @@
         });
     }
 
-    //[axe.js]
+    //[axe.min.js]
 
     return {
         check: check

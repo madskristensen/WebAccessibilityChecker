@@ -21,9 +21,9 @@ namespace WebAccessibilityChecker
             _solutionEvents.ProjectRemoved += _solutionEvents_ProjectRemoved;
 
             var checkerJs = GetScriptFromAssembly("WebAccessibilityChecker.BrowserLink.Checker.js");
-            var axeJs = GetScriptFromAssembly("WebAccessibilityChecker.BrowserLink.Axe.js");
+            var axeJs = GetScriptFromAssembly("WebAccessibilityChecker.BrowserLink.Axe.min.js");
 
-            _script = checkerJs.Replace("//[axe.js]", axeJs);
+            _script = checkerJs.Replace("//[axe.min.js]", axeJs);
         }
 
         public BrowserLinkExtension CreateExtensionInstance(BrowserLinkConnection connection)

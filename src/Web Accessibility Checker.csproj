@@ -91,7 +91,7 @@
     <None Include="BrowserLink\_intellisense\browserlink.intellisense.js" />
     <None Include="BrowserLink\_intellisense\jquery-1.8.2.intellisense.js" />
     <None Include="BrowserLink\_intellisense\jquery-1.8.2.js" />
-    <EmbeddedResource Include="BrowserLink\Axe.js" />
+    <EmbeddedResource Include="BrowserLink\Axe.min.js" />
     <Content Include="icons.pkgdef">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
