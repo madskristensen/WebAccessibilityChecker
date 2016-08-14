@@ -11,6 +11,14 @@ download in the
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
 
+## 1.3
+
+**2016-08-13**
+
+- [x] Async package load
+- [x] Updated JSON Schema file
+- [x] Added support for axe-core 2 new rules
+
 ## 1.2
 
 **2016-07-29**
