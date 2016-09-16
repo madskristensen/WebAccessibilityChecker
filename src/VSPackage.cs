@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.Shell;
 namespace WebAccessibilityChecker
 {
     [Guid(PackageGuids.guidPackageString)]
-    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading =true)]
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#110", "#112", Vsix.Version, IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideOptionPage(typeof(Options), "Web", "Accessibility Checker", 101, 111, true, new[] { "a11y", "wai", "section508", "wcag" }, ProvidesLocalizedCategoryName = false)]
@@ -27,8 +27,6 @@ namespace WebAccessibilityChecker
             OpenSettingsCommand.Initialize(this);
             RunNowCommand.Initialize(this);
             SpecifyRulesCommand.Initialize(this);
-
-            base.Initialize();
         }
     }
 }
