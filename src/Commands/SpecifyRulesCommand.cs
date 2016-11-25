@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using System.IO;
+using System.Reflection;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
@@ -58,7 +59,7 @@ namespace WebAccessibilityChecker
             string solDir = Path.GetDirectoryName(_dte.Solution.FullName);
             string destFile = Path.Combine(solDir, Constants.ConfigFileName);
 
-            string sourceFile = SchemaSelector.GetFileName("json\\schema\\" + Constants.ConfigFileName);
+            string sourceFile = GetFileName("json\\schema\\" + Constants.ConfigFileName);
             File.Copy(sourceFile, destFile, true);
 
             AddFileToSolutionFolder(destFile, (Solution2)_dte.Solution);
@@ -69,6 +70,13 @@ namespace WebAccessibilityChecker
             {
                 _dte.ExecuteCommand(command.Name);
             }
+        }
+
+        public static string GetFileName(string relativePath)
+        {
+            string assembly = Assembly.GetExecutingAssembly().Location;
+            string folder = Path.GetDirectoryName(assembly);
+            return Path.Combine(folder, relativePath);
         }
 
         public static void AddFileToSolutionFolder(string file, Solution2 solution)
