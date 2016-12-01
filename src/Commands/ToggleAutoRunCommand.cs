@@ -8,11 +8,10 @@ namespace WebAccessibilityChecker
     {
         private readonly Package _package;
 
-        private ToggleAutoRunCommand(Package package)
+        private ToggleAutoRunCommand(Package package, OleMenuCommandService commandService)
         {
             _package = package;
 
-            OleMenuCommandService commandService = ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
             {
                 var id = new CommandID(PackageGuids.guidPackageCmdSet, PackageIds.EnableAccessibilityId);
@@ -29,9 +28,9 @@ namespace WebAccessibilityChecker
             get { return _package; }
         }
 
-        public static void Initialize(Package package)
+        public static void Initialize(Package package, OleMenuCommandService commandService)
         {
-            Instance = new ToggleAutoRunCommand(package);
+            Instance = new ToggleAutoRunCommand(package, commandService);
         }
 
         private void BeforeQueryStatus(object sender, EventArgs e)

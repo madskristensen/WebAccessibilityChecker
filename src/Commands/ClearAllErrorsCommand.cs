@@ -11,7 +11,7 @@ namespace WebAccessibilityChecker
         private readonly Package _package;
         private readonly BuildEvents _events;
 
-        private ClearAllErrorsCommand(Package package)
+        private ClearAllErrorsCommand(Package package, OleMenuCommandService commandService)
         {
             _package = package;
 
@@ -19,7 +19,6 @@ namespace WebAccessibilityChecker
             _events = dte.Events.BuildEvents;
             _events.OnBuildBegin += OnBuildBegin;
 
-            OleMenuCommandService commandService = ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
             {
                 var id = new CommandID(PackageGuids.guidPackageCmdSet, PackageIds.ClearAllErrors);
@@ -36,9 +35,9 @@ namespace WebAccessibilityChecker
             get { return _package; }
         }
 
-        public static void Initialize(Package package)
+        public static void Initialize(Package package, OleMenuCommandService commandService)
         {
-            Instance = new ClearAllErrorsCommand(package);
+            Instance = new ClearAllErrorsCommand(package, commandService);
         }
 
         private void OnBuildBegin(vsBuildScope Scope, vsBuildAction Action)

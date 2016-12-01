@@ -8,11 +8,10 @@ namespace WebAccessibilityChecker
     {
         private readonly Package _package;
 
-        private RunNowCommand(Package package)
+        private RunNowCommand(Package package, OleMenuCommandService commandService)
         {
             _package = package;
 
-            OleMenuCommandService commandService = ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
             {
                 var id = new CommandID(PackageGuids.guidPackageCmdSet, PackageIds.RunNow);
@@ -29,9 +28,9 @@ namespace WebAccessibilityChecker
             get { return _package; }
         }
 
-        public static void Initialize(Package package)
+        public static void Initialize(Package package, OleMenuCommandService commandService)
         {
-            Instance = new RunNowCommand(package);
+            Instance = new RunNowCommand(package, commandService);
         }
 
         private void BeforeQueryStatus(object sender, EventArgs e)

@@ -8,11 +8,10 @@ namespace WebAccessibilityChecker
     {
         private readonly Package _package;
 
-        private OpenSettingsCommand(Package package)
+        private OpenSettingsCommand(Package package, OleMenuCommandService commandService)
         {
             _package = package;
 
-            OleMenuCommandService commandService = ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
             {
                 var id = new CommandID(PackageGuids.guidPackageCmdSet, PackageIds.OpenSettings);
@@ -28,9 +27,9 @@ namespace WebAccessibilityChecker
             get { return _package; }
         }
 
-        public static void Initialize(Package package)
+        public static void Initialize(Package package, OleMenuCommandService commandService)
         {
-            Instance = new OpenSettingsCommand(package);
+            Instance = new OpenSettingsCommand(package, commandService);
         }
 
         private void MenuItemCallback(object sender, EventArgs e)

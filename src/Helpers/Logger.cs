@@ -1,17 +1,16 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
 public static class Logger
 {
     static IVsOutputWindowPane pane;
     static object _syncRoot = new object();
-    static IServiceProvider _provider;
     static string _name;
 
-    public static void Initialize(IServiceProvider provider, string name)
+    public static void Initialize(string name)
     {
-        _provider = provider;
         _name = name;
     }
 
@@ -47,7 +46,7 @@ public static class Logger
         if (pane == null)
         {
             Guid guid = Guid.NewGuid();
-            var output = (IVsOutputWindow)_provider.GetService(typeof(SVsOutputWindow));
+            var output = (IVsOutputWindow)Package.GetGlobalService(typeof(SVsOutputWindow));
             output.CreatePane(ref guid, _name, 1, 1);
             output.GetPane(ref guid, out pane);
         }

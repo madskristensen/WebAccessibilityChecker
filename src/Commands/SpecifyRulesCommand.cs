@@ -13,12 +13,11 @@ namespace WebAccessibilityChecker
         private readonly Package _package;
         private readonly DTE2 _dte;
 
-        private SpecifyRulesCommand(Package package)
+        private SpecifyRulesCommand(Package package, OleMenuCommandService commandService)
         {
             _package = package;
             _dte = (DTE2)Package.GetGlobalService(typeof(DTE));
 
-            OleMenuCommandService commandService = ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
             {
                 var id = new CommandID(PackageGuids.guidPackageCmdSet, PackageIds.SpecifyRules);
@@ -27,7 +26,7 @@ namespace WebAccessibilityChecker
                 commandService.AddCommand(cmd);
             }
         }
-        
+
         public static SpecifyRulesCommand Instance { get; private set; }
 
         private IServiceProvider ServiceProvider
@@ -35,9 +34,9 @@ namespace WebAccessibilityChecker
             get { return _package; }
         }
 
-        public static void Initialize(Package package)
+        public static void Initialize(Package package, OleMenuCommandService commandService)
         {
-            Instance = new SpecifyRulesCommand(package);
+            Instance = new SpecifyRulesCommand(package, commandService);
         }
 
         private void BeforeQueryStatus(object sender, EventArgs e)
