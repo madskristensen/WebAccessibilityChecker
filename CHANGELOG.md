@@ -11,9 +11,13 @@ download in the
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
 
-## 1.3
+## 1.4
 
-**2016-08-13**
+- [x] Updated axe-core to latest version
+- [x] Fixed issues for ASP.NET Core projects
+- [x] Turned off `region` rule by default
+
+## 1.3
 
 - [x] Async package load
 - [x] Updated JSON Schema file
@@ -21,21 +25,15 @@ on the official Visual Studio extension gallery.
 
 ## 1.2
 
-**2016-07-29**
-
 - [x] Update axe-core to version 2.0.5
 
 ## 1.1
-
-**2016-04-22**
 
 - [x] Fixed bad checkmark state (#4)
 - [x] Delayed package load till web project opens
 - [x] Added a change log
 
 ## 1.0
-
-**2016-04-14**
 
 - [x] Uses Browser Link to test the running website
 - [x] Tests the actual DOM
