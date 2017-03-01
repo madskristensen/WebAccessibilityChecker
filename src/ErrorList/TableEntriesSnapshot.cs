@@ -59,11 +59,15 @@ namespace WebAccessibilityChecker
                 {
                     content = Errors[index].Column;
                 }
+                else if (columnName == StandardTableKeyNames.HasVerticalContent)
+                {
+                    content = false;
+                }
                 else if (columnName == StandardTableKeyNames.Text)
                 {
-                    content = Errors[index].Help;
+                    content = Errors[index].Description;
                 }
-                else if (columnName == StandardTableKeyNames.FullText || columnName == StandardTableKeyNames.Text)
+                else if (columnName == StandardTableKeyNames.FullText)
                 {
                     content = Errors[index].Description + "\r\n\r\n" +
                               "URL: " + Url + "\r\n" +

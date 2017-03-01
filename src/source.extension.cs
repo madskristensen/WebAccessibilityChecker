@@ -11,7 +11,7 @@ namespace WebAccessibilityChecker
         public const string Name = "Web Accessibility Checker";
         public const string Description = @"The easiest way to perform accessibility checks on any ASP.NET web application. Fully customizable and support all the major international accessibility standards.";
         public const string Language = "en-US";
-        public const string Version = "1.3";
+        public const string Version = "1.3.1";
         public const string Author = "Mads Kristensen";
         public const string Tags = "web, accessibility, a11y, wcag, section 508, wai, asp.net, axe";
     }
