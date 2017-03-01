@@ -68,7 +68,7 @@ namespace WebAccessibilityChecker
 
         private void SetLineAndColumn()
         {
-            if (Line != 0 || Column != 0 || Position == -1 || string.IsNullOrEmpty(FileName))
+            if (Line != 0 || Column != 0 || Position == -1 || string.IsNullOrEmpty(FileName) || !File.Exists(FileName))
                 return;
 
             int lineCount = 0;
