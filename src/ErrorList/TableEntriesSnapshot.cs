@@ -59,19 +59,14 @@ namespace WebAccessibilityChecker
                 {
                     content = Errors[index].Column;
                 }
-                else if (columnName == StandardTableKeyNames.HasVerticalContent)
-                {
-                    content = true;
-                }
                 else if (columnName == StandardTableKeyNames.Text)
                 {
                     content = Errors[index].Description;
-                }
-                else if (columnName == StandardTableKeyNames.FullText)
-                {
-                    content = Errors[index].Description + "\r\n\r\n" +
-                              "URL: " + Url + "\r\n" +
-                              "HTML: " + Errors[index].Html;
+
+                    if (string.IsNullOrEmpty(Errors[index].FileName))
+                    {
+                        content += "\r\n" + Errors[index].Html;
+                    }
                 }
                 else if (columnName == StandardTableKeyNames.PriorityImage || columnName == StandardTableKeyNames.ErrorSeverityImage)
                 {

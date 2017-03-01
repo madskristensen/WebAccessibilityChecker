@@ -44,7 +44,7 @@
       "meta-viewport",
       "object-alt",
       "radiogroup",
-      "region",
+      //"region",
       "scope-attr-valid",
       "server-side-image-map",
       //"skip-link",
