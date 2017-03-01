@@ -43,14 +43,9 @@
         var json = JSON.parse(options);
         project = projectName;
 
-        try {
-            browserLink.sourceMapping.ensureUpToDateAsync(function () {
-                axe.a11yCheck(document, json, runAxe);
-            });
-        }
-        catch (e) {
+        setTimeout(function () {
             axe.a11yCheck(document, json, runAxe);
-        }
+        }, 2000);
     }
 
     //[axe.min.js]
