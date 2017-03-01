@@ -51,11 +51,11 @@ namespace WebAccessibilityChecker
                 {
                     content = Vsix.Name;
                 }
-                else if (columnName == StandardTableKeyNames.Line)
+                else if (columnName == StandardTableKeyNames.Line && !string.IsNullOrEmpty(Errors[index].FileName))
                 {
                     content = Errors[index].Line;
                 }
-                else if (columnName == StandardTableKeyNames.Column)
+                else if (columnName == StandardTableKeyNames.Column && !string.IsNullOrEmpty(Errors[index].FileName))
                 {
                     content = Errors[index].Column;
                 }
