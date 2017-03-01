@@ -61,7 +61,7 @@ namespace WebAccessibilityChecker
                 }
                 else if (columnName == StandardTableKeyNames.HasVerticalContent)
                 {
-                    content = false;
+                    content = true;
                 }
                 else if (columnName == StandardTableKeyNames.Text)
                 {
