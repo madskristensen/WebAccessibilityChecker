@@ -16,6 +16,7 @@ on the official Visual Studio extension gallery.
 - [x] Updated axe-core to latest version
 - [x] Fixed issues for ASP.NET Core projects
 - [x] Turned off `region` rule by default
+- [x] Added details expander to error list
 
 ## 1.3
 
