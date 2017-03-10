@@ -7,7 +7,6 @@
     var _project, _options;
 
     function initialize(options, project) {
-        console.log(options, project);
         _options = options;
         _project = project;
     }
@@ -46,7 +45,6 @@
 
     function check() {
         setTimeout(function () {
-            console.log("check");
             var json = JSON.parse(_options);
             axe.a11yCheck(document, json, runAxe);
         }, 2000);
