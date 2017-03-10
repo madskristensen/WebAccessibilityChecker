@@ -29,6 +29,8 @@ namespace WebAccessibilityChecker
             if (!_connections.Contains(connection))
                 _connections.Add(connection);
 
+            Browsers.Client(connection).Invoke("initialize", GetOptions(connection), connection.Project.Name);
+
             if (VSPackage.Options.RunOnPageLoad)
                 CheckA11y(connection);
 
@@ -44,20 +46,25 @@ namespace WebAccessibilityChecker
 
             foreach (var connection in connections)
             {
-                var dir = new DirectoryInfo(connection.Project.GetRootFolder());
-                string folder = FindConfigFolder(dir);
-                string file = Path.Combine(folder, Constants.ConfigFileName);
-                string options = "{}";
-
-                if (File.Exists(file))
-                {
-                    var content = File.ReadAllText(file);
-                    var obj = JObject.Parse(content, new JsonLoadSettings { CommentHandling = CommentHandling.Ignore });
-                    options = obj.ToString();
-                }
-
-                Browsers.Client(connection).Invoke("check", options, connection.Project.Name);
+                Browsers.Client(connection).Invoke("check");
             }
+        }
+
+        private string GetOptions(BrowserLinkConnection connection)
+        {
+            var dir = new DirectoryInfo(connection.Project.GetRootFolder());
+            string folder = FindConfigFolder(dir);
+            string file = Path.Combine(folder, Constants.ConfigFileName);
+            string options = "{}";
+
+            if (File.Exists(file))
+            {
+                var content = File.ReadAllText(file);
+                var obj = JObject.Parse(content, new JsonLoadSettings { CommentHandling = CommentHandling.Ignore });
+                options = obj.ToString();
+            }
+
+            return options;
         }
 
         public override void OnDisconnecting(BrowserLinkConnection connection)

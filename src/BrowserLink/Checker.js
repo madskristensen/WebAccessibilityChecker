@@ -4,11 +4,17 @@
     /// <param name="browserLink" value="bl" />
     /// <param name="$" value="jQuery" />
 
-    var project;
+    var _project, _options;
+
+    function initialize(options, project) {
+        console.log(options, project);
+        _options = options;
+        _project = project;
+    }
 
     function runAxe(results) {
 
-        results.project = project;
+        results.project = _project;
 
         for (var i = 0; i < results.violations.length; i++) {
 
@@ -38,12 +44,10 @@
         }
     }
 
-    function check(options, projectName) {
-
-        var json = JSON.parse(options);
-        project = projectName;
-
+    function check() {
         setTimeout(function () {
+            console.log("check");
+            var json = JSON.parse(_options);
             axe.a11yCheck(document, json, runAxe);
         }, 2000);
     }
@@ -51,6 +55,10 @@
     //[axe.min.js]
 
     return {
-        check: check
+        check: check,
+        initialize: initialize,
+        menu: {
+            'Run Accessibility Checker': 'check()'
+        }
     };
 });
