@@ -18,6 +18,7 @@ and support all the major international accessibility standards.
 - Uses Browser Link to test the running website
 - Tests the actual DOM
 - Integrates with the Visual Studio error list
+- Supports the [Web Essentials Chrome extension](https://chrome.google.com/webstore/detail/web-essentials/mghdcdlpcdiodelbplncnodiiadljhhk)
 - Supported accessibility standards
   - WCAG Level A
   - WCAG Level AA
