@@ -22,7 +22,7 @@ namespace WebAccessibilityChecker
 
         public void VsTextViewCreated(IVsTextView textViewAdapter)
         {
-            var textView = EditorAdaptersFactoryService.GetWpfTextView(textViewAdapter);
+            IWpfTextView textView = EditorAdaptersFactoryService.GetWpfTextView(textViewAdapter);
             ITextDocument document;
 
             if (TextDocumentFactoryService.TryGetTextDocument(textView.TextDataModel.DocumentBuffer, out document))

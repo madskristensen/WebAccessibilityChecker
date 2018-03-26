@@ -109,8 +109,8 @@ namespace WebAccessibilityChecker
             if (cast == null)
                 return false;
 
-            var thisHash = GetHashCode();
-            var objHash = cast.GetHashCode();
+            int thisHash = GetHashCode();
+            int objHash = cast.GetHashCode();
 
             return thisHash.Equals(objHash);
         }

@@ -20,8 +20,8 @@ namespace WebAccessibilityChecker
             _solutionEvents.AfterClosing += SolutionEvents_AfterClosing;
             _solutionEvents.ProjectRemoved += _solutionEvents_ProjectRemoved;
 
-            var checkerJs = GetScriptFromAssembly("WebAccessibilityChecker.BrowserLink.Checker.js");
-            var axeJs = GetScriptFromAssembly("WebAccessibilityChecker.BrowserLink.Axe.min.js");
+            string checkerJs = GetScriptFromAssembly("WebAccessibilityChecker.BrowserLink.Checker.js");
+            string axeJs = GetScriptFromAssembly("WebAccessibilityChecker.BrowserLink.Axe.min.js");
 
             _script = checkerJs.Replace("//[axe.min.js]", axeJs);
         }
@@ -41,7 +41,7 @@ namespace WebAccessibilityChecker
 
         private static string GetScriptFromAssembly(string path)
         {
-            using (var stream = typeof(CheckerFactory).Assembly.GetManifestResourceStream(path))
+            using (Stream stream = typeof(CheckerFactory).Assembly.GetManifestResourceStream(path))
             using (var reader = new StreamReader(stream))
             {
                 return reader.ReadToEnd();

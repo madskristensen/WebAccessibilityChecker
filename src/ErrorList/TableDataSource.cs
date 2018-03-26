@@ -23,7 +23,7 @@ namespace WebAccessibilityChecker
             var compositionService = ServiceProvider.GlobalProvider.GetService(typeof(SComponentModel)) as IComponentModel;
             compositionService.DefaultCompositionService.SatisfyImportsOnce(this);
 
-            var manager = TableManagerProvider.GetTableManager(StandardTables.ErrorsTable);
+            ITableManager manager = TableManagerProvider.GetTableManager(StandardTables.ErrorsTable);
             manager.AddSource(this, StandardTableColumnDefinitions.DetailsExpander, StandardTableColumnDefinitions.BuildTool,
                                     StandardTableColumnDefinitions.ErrorSeverity, StandardTableColumnDefinitions.ErrorCode,
                                     StandardTableColumnDefinitions.ErrorSource, StandardTableColumnDefinitions.ErrorCategory,
@@ -93,7 +93,7 @@ namespace WebAccessibilityChecker
         {
             lock (_managers)
             {
-                foreach (var manager in _managers)
+                foreach (SinkManager manager in _managers)
                 {
                     manager.UpdateSink(_snapshots.Values);
                 }
@@ -126,7 +126,7 @@ namespace WebAccessibilityChecker
 
             lock (_managers)
             {
-                foreach (var manager in _managers)
+                foreach (SinkManager manager in _managers)
                 {
                     manager.RemoveSnapshots(urls);
                 }
@@ -139,7 +139,7 @@ namespace WebAccessibilityChecker
         {
             foreach (string url in _snapshots.Keys)
             {
-                var snapshot = _snapshots[url];
+                TableEntriesSnapshot snapshot = _snapshots[url];
                 if (snapshot != null)
                 {
                     snapshot.Dispose();
@@ -150,7 +150,7 @@ namespace WebAccessibilityChecker
 
             lock (_managers)
             {
-                foreach (var manager in _managers)
+                foreach (SinkManager manager in _managers)
                 {
                     manager.Clear();
                 }

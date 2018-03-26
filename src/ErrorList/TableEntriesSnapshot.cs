@@ -110,7 +110,7 @@ namespace WebAccessibilityChecker
 
         public override bool TryCreateDetailsStringContent(int index, out string content)
         {
-            var error = Errors[index];
+            Rule error = Errors[index];
             content = $"Impact: {error.Impact}\r\nURL: {Url}\r\nHTML: {error.Html}";
             return true;
         }

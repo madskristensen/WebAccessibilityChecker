@@ -8,12 +8,12 @@ using Microsoft.VisualStudio.Shell;
 namespace WebAccessibilityChecker
 {
     [Guid(PackageGuids.guidPackageString)]
-    [PackageRegistration(UseManagedResourcesOnly = true)]
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#110", "#112", Vsix.Version, IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideOptionPage(typeof(Options), "Web", "Accessibility Checker", 101, 111, true, new[] { "a11y", "wai", "section508", "wcag" }, ProvidesLocalizedCategoryName = false)]
-    [ProvideAutoLoad(ActivationContextGuid)]
-    [ProvideUIContextRule(ActivationContextGuid, "Load Package",
+    [ProvideAutoLoad(_activationContextGuid, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideUIContextRule(_activationContextGuid, "Load Package",
         "WAP | WebSite | ProjectK | DotNetCoreWeb",
         new string[] {
             "WAP",
@@ -29,7 +29,7 @@ namespace WebAccessibilityChecker
         })]
     public sealed class VSPackage : AsyncPackage
     {
-        private const string ActivationContextGuid = "{d3114de0-d3b7-451e-b670-9a1740424cba}";
+        private const string _activationContextGuid = "{d3114de0-d3b7-451e-b670-9a1740424cba}";
 
         public static Options Options
         {
@@ -39,13 +39,13 @@ namespace WebAccessibilityChecker
 
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
+            await JoinableTaskFactory.SwitchToMainThreadAsync();
             Logger.Initialize(Vsix.Name);
 
             Options = (Options)GetDialogPage(typeof(Options));
 
-            var commandService = await GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
 
-            if (commandService != null)
+            if (await GetServiceAsync(typeof(IMenuCommandService)) is OleMenuCommandService commandService)
             {
                 ClearAllErrorsCommand.Initialize(this, commandService);
                 ToggleAutoRunCommand.Initialize(this, commandService);

@@ -64,7 +64,7 @@ namespace WebAccessibilityChecker
             AddFileToSolutionFolder(destFile, (Solution2)_dte.Solution);
             _dte.ItemOperations.OpenFile(destFile);
 
-            var command = _dte.Commands.Item("SolutionExplorer.SyncWithActiveDocument");
+            Command command = _dte.Commands.Item("SolutionExplorer.SyncWithActiveDocument");
             if (command.IsAvailable)
             {
                 _dte.ExecuteCommand(command.Name);

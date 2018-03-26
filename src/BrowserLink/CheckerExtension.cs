@@ -44,7 +44,7 @@ namespace WebAccessibilityChecker
             if (connections == null)
                 return;
 
-            foreach (var connection in connections)
+            foreach (BrowserLinkConnection connection in connections)
             {
                 Browsers.Client(connection).Invoke("check");
             }
@@ -59,7 +59,7 @@ namespace WebAccessibilityChecker
 
             if (File.Exists(file))
             {
-                var content = File.ReadAllText(file);
+                string content = File.ReadAllText(file);
                 var obj = JObject.Parse(content, new JsonLoadSettings { CommentHandling = CommentHandling.Ignore });
                 options = obj.ToString();
             }
@@ -86,7 +86,7 @@ namespace WebAccessibilityChecker
                 dir = dir.Parent;
             }
 
-            var bin = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string bin = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             return Path.Combine(bin, "JSON\\Schema");
         }
 
@@ -95,7 +95,7 @@ namespace WebAccessibilityChecker
         {
             try
             {
-                var result = JsonConvert.DeserializeObject<AccessibilityResult>(jsonResult);
+                AccessibilityResult result = JsonConvert.DeserializeObject<AccessibilityResult>(jsonResult);
                 ErrorListService.ProcessLintingResults(result);
             }
             catch (Exception ex)
