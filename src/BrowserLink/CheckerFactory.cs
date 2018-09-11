@@ -11,7 +11,7 @@ namespace WebAccessibilityChecker
     public class CheckerFactory : IBrowserLinkExtensionFactory
     {
         static SolutionEvents _solutionEvents;
-        static string _script;
+        static readonly string _script;
 
         static CheckerFactory()
         {
